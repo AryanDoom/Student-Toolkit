@@ -5,6 +5,8 @@ from datetime import date
 import time
 import qrcode
 from PIL import Image , ImageTk
+import os
+from google import genai
 
 
 ctk.set_appearance_mode("dark")
@@ -283,6 +285,8 @@ def open_gpa_calculator():
 
     ctk.CTkButton(gpa_window, text="Calculate GPA", command=calculate_gpa,
                   text_color="#1e90ff", corner_radius=15, height=40, width=160).pack(pady=10)
+
+
 def open_qr_code():
     qr_window= ctk.CTkToplevel(root)
     qr_window.title("QR Code for Every TextBook Needed")
@@ -486,10 +490,36 @@ def open_qr_code():
              qr_label.configure(text="We dont have said subjects book (I am working tirelessly to add it )")
              return 
 
+def open_llm():
+    llm_window = ctk.CTkToplevel(root)
+    llm_window.title("Any Doubts you might have gets solved")
+    llm_window.geometry("1000x1000")
 
+    def label(text):
+        ctk.CTkLabel(llm_window, text=text, font=("Segoe UI", 15), text_color="#006d12").pack(pady=4)
 
-    generate_btn = ctk.CTkButton(qr_window, text="Generate QR Code", command=generate_qr)
-    generate_btn.pack(pady=10)
+    label("Enter your doubt(Please enter exit if conversation is completed).")
+    llm_entry = ctk.CTkEntry(llm_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=500)
+    llm_entry.pack(pady=4)
+
+    llm_label = ctk.CTkLabel(llm_window, text="")
+    llm_label.pack(pady=10)
+
+    def get_answer():
+        user_doubt = llm_entry.get().lower()
+        if user_doubt == "exit":
+            llm_window.destroy()
+            return
+
+        client = genai.Client(api_key=os.getenv("DOOM_BOT_KEY"))
+        
+                              
+        chat = client.chats.create(model="gemini-2.5-flash")
+
+        response = chat.send_message(user_doubt)
+        llm_label.configure(text=f"Response: {response.text}")
+
+    ctk.CTkButton(llm_window, text="Calculate Response",command=get_answer,text_color="#000000",corner_radius=15,height=40,width=160).pack(pady=10)
 
 
 root = ctk.CTk()
@@ -527,6 +557,7 @@ ctk.CTkButton(frame, text="To-Do List", command=open_todo_list, **btn_style).gri
 ctk.CTkButton(frame, text="GPA Calculator", command=open_gpa_calculator, **btn_style).grid(row=1, column=0, padx=10, pady=10)
 ctk.CTkButton(frame, text="Study Timer", command=open_ypt, **btn_style).grid(row=1, column=1, padx=10, pady=10)
 ctk.CTkButton(frame, text="Book Corner", command=open_qr_code, **btn_style ).grid(row=3, column=1 ,padx=10, pady=10)
+ctk.CTkButton(frame, text="DOOM Bot", command=open_llm, **btn_style ).grid(row=3, column=0 ,padx=10, pady=10)
 
 
 root.mainloop()
