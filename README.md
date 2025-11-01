@@ -14,3 +14,7 @@ You can also keep record of all the tasks you need to complete as a todo-list.
 <img width="882" height="771" alt="Screenshot 2025-10-12 130913" src="https://github.com/user-attachments/assets/7b6126c9-fa8c-443a-9034-4b54fb8b9cc2" />
 <img width="739" height="740" alt="Screenshot 2025-10-12 130854" src="https://github.com/user-attachments/assets/b2023621-85b1-440c-9700-4ae9819f1bed" />
 
+
+Commits made on October 31 and November 1.
+Added a Gemini-2.5-flash wrapper using a free to use api key from Google AI Studio,to solve doubts a student might have while learning .
+![alt text](image.png)
