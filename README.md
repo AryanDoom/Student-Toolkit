@@ -17,4 +17,10 @@ You can also keep record of all the tasks you need to complete as a todo-list.
 
 Commits made on October 31 and November 1.
 Added a Gemini-2.5-flash wrapper using a free to use api key from Google AI Studio,to solve doubts a student might have while learning .
-![alt text](image.png)
+<img width="1013" height="903" alt="Screenshot 2025-11-01 075540" src="https://github.com/user-attachments/assets/52ad606c-a8ab-4468-87ca-0a120efa92db" />
+
+Made two versions of the DOOM bot, one which runs on the google-genai api key and one which is running locally.
+Locally run model is the deepseek-r1-8b open source llm.
+<img width="1904" height="529" alt="image" src="https://github.com/user-attachments/assets/561b3a30-6d75-4c6a-a43b-acc06c9a27a2" />
+Parameters and system prompts given to the bot are in the Modulefile.
+
