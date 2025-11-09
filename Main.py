@@ -71,6 +71,238 @@ def open_attendance_calculator():
     ctk.CTkButton(window, text="Calculate", command=calculate_attendance_plan,
                   text_color="#1e90ff", corner_radius=20, height=44, width=160).pack(pady=18)
 
+def open_gpa_plus():
+    import customtkinter as ctk
+    from tkinter import messagebox
+
+    gpa_plus_window = ctk.CTkToplevel(root)
+    gpa_plus_window.title("GPA Calculator ++")
+    gpa_plus_window.geometry("1000x720")
+    gpa_plus_window.configure(fg_color="#232323")
+
+    ctk.CTkLabel(gpa_plus_window, text="GPA Calculator ++",font=("Segoe UI", 34, "bold"),text_color="#1e90ff").pack(pady=25)
+
+    
+    navigation_frame = ctk.CTkFrame(gpa_plus_window, fg_color="transparent")
+    navigation_frame.pack(pady=(10, 20))
+
+    btn_style = {"corner_radius": 12,"width": 220,"height": 50,"font": ("Segoe UI", 16, "bold"),"fg_color": "#2a2a2a","text_color": "#1e90ff","hover_color": "#1e1e1e",}
+
+    container = ctk.CTkFrame(gpa_plus_window, fg_color="#1e1e1e", corner_radius=12)
+    container.pack(expand=True, padx=20, pady=20)
+
+    letter_frame = ctk.CTkFrame(container, fg_color="#232323")
+    marks_frame = ctk.CTkFrame(container, fg_color="#232323")
+    cgpa_frame = ctk.CTkFrame(container, fg_color="#232323")
+
+    for f in (letter_frame, marks_frame, cgpa_frame):
+        f.grid(row=0, column=0, sticky="nsew")
+
+    def show_frame(frame):
+        frame.tkraise()
+
+    ctk.CTkButton(navigation_frame, text="Letter Grades → SGPA", command=lambda: show_frame(letter_frame), **btn_style).pack(side="left", padx=10)
+    ctk.CTkButton(navigation_frame, text="Marks → SGPA", command=lambda: show_frame(marks_frame), **btn_style).pack(side="left", padx=10)
+    ctk.CTkButton(navigation_frame, text="SGPAs → CGPA", command=lambda: show_frame(cgpa_frame), **btn_style).pack(side="left", padx=10)
+
+
+    ctk.CTkLabel(letter_frame, text="Letter Grades → SGPA", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(pady=(20, 10))
+    ctk.CTkLabel(letter_frame, text="Number of Subjects:", font=("Segoe UI", 18)).pack()
+    lg_entry = ctk.CTkEntry(letter_frame, width=120, height=40, font=("Segoe UI", 16), justify="center")
+    lg_entry.pack(pady=8)
+
+    lg_entries = []
+    lg_scroll = ctk.CTkScrollableFrame(letter_frame, width=880, height=260, label_text="Enter Grades & Credits")
+    lg_scroll.pack(pady=10)
+
+    grade_points = {"S": 10, "A": 9, "B": 8, "C": 7, "D": 6, "E": 5, "F": 0}
+    lg_result = ctk.CTkLabel(letter_frame, text="", font=("Segoe UI", 22, "bold"), text_color="#1e90ff")
+
+    def create_lg_fields():
+        for w in lg_scroll.winfo_children():
+            w.destroy()
+        lg_entries.clear()
+        try:
+            n = int(lg_entry.get())
+            if n <= 0: raise ValueError
+        except ValueError:
+            messagebox.showerror("Error", "Enter valid number of subjects!")
+            return
+
+        for i in range(n):
+            row = ctk.CTkFrame(lg_scroll, fg_color="#1e1e1e")
+            row.pack(fill="x", padx=20, pady=6)
+            ctk.CTkLabel(row, text=f"Subject {i+1}", font=("Segoe UI", 15, "bold"), width=120).pack(side="left", padx=10)
+            grade_box = ctk.CTkComboBox(row, values=list(grade_points.keys()), width=100)
+            grade_box.set("S")
+            grade_box.pack(side="left", padx=10)
+            credit_box = ctk.CTkEntry(row, width=100, placeholder_text="Credits", justify="center")
+            credit_box.pack(side="left", padx=10)
+            lg_entries.append((grade_box, credit_box))
+
+    def calculate_lg_sgpa():
+        try:
+            total_points, total_credits = 0, 0
+            for gb, ce in lg_entries:
+                grade = gb.get().upper()
+                credit = float(ce.get())
+                total_points += grade_points[grade] * credit
+                total_credits += credit
+            sgpa = round(total_points / total_credits, 2)
+
+            popup = ctk.CTkToplevel(gpa_plus_window)
+            popup.title("SGPA Result")
+            popup.geometry("300x150")
+            popup.configure(fg_color="#232323")
+            ctk.CTkLabel(popup, text=f"SGPA: {sgpa}", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(expand=True)
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+
+
+    btn_box = ctk.CTkFrame(letter_frame, fg_color="transparent")
+    btn_box.pack(pady=10)
+    ctk.CTkButton(btn_box, text="Create Fields", command=create_lg_fields, **btn_style).pack(side="left", padx=15)
+    ctk.CTkButton(btn_box, text="Calculate SGPA", command=calculate_lg_sgpa, **btn_style).pack(side="left", padx=15)
+
+    ctk.CTkLabel(marks_frame, text="Marks → SGPA", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(pady=(20, 10))
+    ctk.CTkLabel(marks_frame, text="Number of Subjects:", font=("Segoe UI", 18)).pack()
+    ms_entry = ctk.CTkEntry(marks_frame, width=120, height=40, font=("Segoe UI", 16), justify="center")
+    ms_entry.pack(pady=8)
+
+    ms_entries = []
+    ms_scroll = ctk.CTkScrollableFrame(marks_frame, width=880, height=260, label_text="Enter Marks")
+    ms_scroll.pack(pady=10)
+
+    ms_result = ctk.CTkLabel(marks_frame, text="", font=("Segoe UI", 22, "bold"), text_color="#1e90ff")
+
+    def create_ms_fields():
+        for w in ms_scroll.winfo_children():
+            w.destroy()
+        ms_entries.clear()
+        try:
+            n = int(ms_entry.get())
+            if n <= 0: raise ValueError
+        except ValueError:
+            messagebox.showerror("Error", "Enter valid number of subjects!")
+            return
+
+        headers = ["ISA1", "ISA2", "Assign.", "ESA", "Lab", "Credits"]
+        for i in range(n):
+            row = ctk.CTkFrame(ms_scroll, fg_color="#1e1e1e")
+            row.pack(fill="x", padx=20, pady=6)
+            ctk.CTkLabel(row, text=f"Subject {i+1}", font=("Segoe UI", 15, "bold"), width=120).pack(side="left", padx=10)
+            boxes = []
+            for h in headers:
+                box = ctk.CTkFrame(row, fg_color="transparent")
+                box.pack(side="left", padx=6)
+                ctk.CTkLabel(box, text=h).pack()
+                e = ctk.CTkEntry(box, width=70, justify="center")
+                e.pack()
+                boxes.append(e)
+            ms_entries.append(boxes)
+
+    def ms_calc_total(isa1, isa2, assignment, esa, credit, lab=0):
+        if credit == 2:
+            return (isa1 / 30 * 15) + (isa2 / 30 * 15) + (esa / 100 * 70)
+        elif credit in [3, 4]:
+            return isa1 + isa2 + assignment + esa
+        elif credit == 5:
+            return (isa1 + isa2 + assignment + esa + lab) / 120 * 100
+        else:
+            raise ValueError("Credit must be 2–5")
+
+    def ms_grade_point(total):
+        if total >= 90: return 10
+        elif total >= 80: return 9
+        elif total >= 70: return 8
+        elif total >= 60: return 7
+        elif total >= 50: return 6
+        elif total >= 40: return 5
+        else: return 0
+
+    def calculate_ms_sgpa():
+        try:
+            total_points = 0
+            total_credits = 0
+            for row in ms_entries:
+                isa1, isa2, assignment, esa, lab, credit = [float(x.get() or 0) for x in row]
+                total = ms_calc_total(isa1, isa2, assignment, esa, credit, lab)
+                gp = ms_grade_point(total)
+                total_points += gp * credit
+                total_credits += credit
+            sgpa = round(total_points / total_credits, 2)
+
+            popup = ctk.CTkToplevel(gpa_plus_window)
+            popup.title("SGPA Result")
+            popup.geometry("300x150")
+            popup.configure(fg_color="#232323")
+            ctk.CTkLabel(popup, text=f"SGPA: {sgpa}", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(expand=True)
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    btn_box2 = ctk.CTkFrame(marks_frame, fg_color="transparent")
+    btn_box2.pack(pady=10)
+    ctk.CTkButton(btn_box2, text="Create Fields", command=create_ms_fields, **btn_style).pack(side="left", padx=15)
+    ctk.CTkButton(btn_box2, text="Calculate SGPA", command=calculate_ms_sgpa, **btn_style).pack(side="left", padx=15)
+
+    
+    ctk.CTkLabel(cgpa_frame, text="SGPAs → CGPA", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(pady=(20, 10))
+    ctk.CTkLabel(cgpa_frame, text="Number of Semesters:", font=("Segoe UI", 18)).pack()
+    cg_entry = ctk.CTkEntry(cgpa_frame, width=120, height=40, font=("Segoe UI", 16), justify="center")
+    cg_entry.pack(pady=8)
+
+    cg_entries = []
+    cg_scroll = ctk.CTkScrollableFrame(cgpa_frame, width=880, height=260, label_text="Enter SGPA for Each Semester")
+    cg_scroll.pack(pady=10)
+
+    def create_cg_fields():
+        for w in cg_scroll.winfo_children():
+            w.destroy()
+        cg_entries.clear()
+        try:
+            n = int(cg_entry.get())
+            if n <= 0: raise ValueError
+        except ValueError:
+            messagebox.showerror("Error", "Enter valid number of semesters!")
+            return
+
+        for i in range(n):
+            row = ctk.CTkFrame(cg_scroll, fg_color="#1e1e1e")
+            row.pack(fill="x", padx=20, pady=6)
+            ctk.CTkLabel(row, text=f"Semester {i+1}", font=("Segoe UI", 15, "bold"), width=160).pack(side="left", padx=10)
+            e = ctk.CTkEntry(row, width=200, height=36, justify="center", placeholder_text="Enter SGPA")
+            e.pack(side="left", padx=10)
+            cg_entries.append(e)
+
+    def calculate_cgpa():
+        try:
+            total = 0
+            count = 0
+            for e in cg_entries:
+                val = e.get().strip()
+                if val == "": continue
+                sg = float(val)
+                if not (0 <= sg <= 10): raise ValueError("SGPA must be between 0 and 10.")
+                total += sg
+                count += 1
+            cgpa = round(total / count, 2)
+            popup = ctk.CTkToplevel(gpa_plus_window)
+            popup.title("CGPA Result")
+            popup.geometry("300x150")
+            popup.configure(fg_color="#232323")
+            ctk.CTkLabel(popup, text=f"CGPA: {cgpa}", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(expand=True)
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    btn_box3 = ctk.CTkFrame(cgpa_frame, fg_color="transparent")
+    btn_box3.pack(pady=10)
+    ctk.CTkButton(btn_box3, text="Create Fields", command=create_cg_fields, **btn_style).pack(side="left", padx=15)
+    ctk.CTkButton(btn_box3, text="Calculate CGPA", command=calculate_cgpa, **btn_style).pack(side="left", padx=15)
+
+    show_frame(letter_frame)
+
+
 
 def open_todo_list():
     todo_window = ctk.CTkToplevel(root)
@@ -297,7 +529,7 @@ def open_qr_code():
 
     label("Select the Subject you would like the book for")
 
-    subject_var = tk.StringVar(value="")  # Holds selected subject
+    subject_var = tk.StringVar(value="")  #add the subjects here
 
     subjects = {
         "Maths 1": "maths1",
@@ -433,10 +665,10 @@ frame.pack(pady=20)
 
 ctk.CTkButton(frame, text="Attendance Calculator", command=open_attendance_calculator, **btn_style).grid(row=0, column=0, padx=10, pady=10)
 ctk.CTkButton(frame, text="To-Do List", command=open_todo_list, **btn_style).grid(row=0, column=1, padx=10, pady=10)
-ctk.CTkButton(frame, text="GPA Calculator", command=open_gpa_calculator, **btn_style).grid(row=1, column=0, padx=10, pady=10)
+ctk.CTkButton(frame, text="Grade Calculator", command=open_gpa_calculator, **btn_style).grid(row=1, column=0, padx=10, pady=10)
 ctk.CTkButton(frame, text="Study Timer", command=open_ypt, **btn_style).grid(row=1, column=1, padx=10, pady=10)
 ctk.CTkButton(frame, text="Book Corner", command=open_qr_code, **btn_style ).grid(row=3, column=1 ,padx=10, pady=10)
 ctk.CTkButton(frame, text="DOOM Bot", command=open_llm, **btn_style ).grid(row=3, column=0 ,padx=10, pady=10)
-
+ctk.CTkButton(frame, text="GPA Calculator", command=open_gpa_plus, **btn_style).grid(row=4, column=0, padx=10, pady=10)
 
 root.mainloop()
