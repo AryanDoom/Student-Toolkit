@@ -1,3 +1,4 @@
+#all the imports
 import tkinter as tk
 from tkinter import messagebox
 import customtkinter as ctk
@@ -6,17 +7,19 @@ import time
 import qrcode
 from PIL import Image , ImageTk
 import os
-from google import genai
 import ollama
 
-ctk.set_appearance_mode("dark")
+#appearance and default background theme
+ctk.set_appearance_mode("dark")   
 ctk.set_default_color_theme("blue")
 
+
+#Attendance calculator
 def open_attendance_calculator():
     window = ctk.CTkToplevel(root)
     window.title("Attendance Predictor")
     window.geometry("900x600")
-
+# labels and the butto
     ctk.CTkLabel(window, text="Current Attendance %", font=("Segoe UI", 18)).pack(pady=10)
     current_entry = ctk.CTkEntry(window, font=("Segoe UI", 18), corner_radius=15, height=40, width=200)
     current_entry.pack(pady=10)
@@ -28,15 +31,19 @@ def open_attendance_calculator():
     result_label = ctk.CTkLabel(window, text="", font=("Segoe UI", 16), text_color="#1e90ff", wraplength=500, justify="left")
     result_label.pack(pady=10)
 
+
+#-----------------Backend of the calculator-----------------------
     def calculate_attendance_plan():
         try:
             current_percentage = int(current_entry.get())
             target_percentage = int(target_entry.get())
             class_per_week = 7
 
-            if not (0 <= current_percentage <= 100 and 0 < target_percentage <= 100):
+            if not (0 <= current_percentage <= 100 and 0 < target_percentage <= 100): #Invalid entries 
                 result_label.configure(text="Invalid input. Enter percentages between 0 and 100.")
                 return
+
+# All the variable names and predefined info needed for the code to run ( update the end sem when new data is found )
 
             today = date.today()
             end_sem = date(2026, 1, 2)
@@ -68,18 +75,22 @@ def open_attendance_calculator():
         except ValueError:
             result_label.configure(text="Please enter valid numbers.")
 
-    ctk.CTkButton(window, text="Calculate", command=calculate_attendance_plan,
+    ctk.CTkButton(window, text="Calculate", command=calculate_attendance_plan,  # Button colour and text that is displayed in the ui
                   text_color="#1e90ff", corner_radius=20, height=44, width=160).pack(pady=18)
 
-def open_gpa_plus():
-    import customtkinter as ctk
-    from tkinter import messagebox
 
+
+#-----------------------Back end for the gpa plus calculator--------------------
+def open_gpa_plus():
+    
+# window and frame shit needed
     gpa_plus_window = ctk.CTkToplevel(root)
     gpa_plus_window.title("GPA Calculator ++")
     gpa_plus_window.geometry("1000x720")
     gpa_plus_window.configure(fg_color="#232323")
 
+
+#Buttons
     ctk.CTkLabel(gpa_plus_window, text="GPA Calculator ++",font=("Segoe UI", 34, "bold"),text_color="#1e90ff").pack(pady=25)
 
     
@@ -115,20 +126,24 @@ def open_gpa_plus():
     lg_scroll = ctk.CTkScrollableFrame(letter_frame, width=880, height=260, label_text="Enter Grades & Credits")
     lg_scroll.pack(pady=10)
 
+#Pre defined grades and their worth
     grade_points = {"S": 10, "A": 9, "B": 8, "C": 7, "D": 6, "E": 5, "F": 0}
     lg_result = ctk.CTkLabel(letter_frame, text="", font=("Segoe UI", 22, "bold"), text_color="#1e90ff")
 
+#Creating the fields and checking if there are pre existing entries available in the window
     def create_lg_fields():
         for w in lg_scroll.winfo_children():
-            w.destroy()
+            w.destroy()  #destroys the existing entries if any
         lg_entries.clear()
         try:
             n = int(lg_entry.get())
-            if n <= 0: raise ValueError
+            if n <= 0: raise ValueError  #Error if the number entered is not applicable
         except ValueError:
             messagebox.showerror("Error", "Enter valid number of subjects!")
             return
 
+
+# appending the number of the subjects entered
         for i in range(n):
             row = ctk.CTkFrame(lg_scroll, fg_color="#1e1e1e")
             row.pack(fill="x", padx=20, pady=6)
@@ -142,14 +157,16 @@ def open_gpa_plus():
 
     def calculate_lg_sgpa():
         try:
-            total_points, total_credits = 0, 0
+            total_points, total_credits = 0, 0  #predefining the variables for the calculation
             for gb, ce in lg_entries:
                 grade = gb.get().upper()
                 credit = float(ce.get())
                 total_points += grade_points[grade] * credit
                 total_credits += credit
-            sgpa = round(total_points / total_credits, 2)
+            sgpa = round(total_points / total_credits, 2)  # sgpa formula maybe changed
 
+
+# pop up for the result
             popup = ctk.CTkToplevel(gpa_plus_window)
             popup.title("SGPA Result")
             popup.geometry("300x150")
@@ -159,7 +176,7 @@ def open_gpa_plus():
             messagebox.showerror("Error", str(e))
 
 
-
+# UI button and labels
     btn_box = ctk.CTkFrame(letter_frame, fg_color="transparent")
     btn_box.pack(pady=10)
     ctk.CTkButton(btn_box, text="Create Fields", command=create_lg_fields, **btn_style).pack(side="left", padx=15)
@@ -170,12 +187,14 @@ def open_gpa_plus():
     ms_entry = ctk.CTkEntry(marks_frame, width=120, height=40, font=("Segoe UI", 16), justify="center")
     ms_entry.pack(pady=8)
 
+
     ms_entries = []
     ms_scroll = ctk.CTkScrollableFrame(marks_frame, width=880, height=260, label_text="Enter Marks")
     ms_scroll.pack(pady=10)
 
     ms_result = ctk.CTkLabel(marks_frame, text="", font=("Segoe UI", 22, "bold"), text_color="#1e90ff")
 
+#backend for the marks to sgpa calc
     def create_ms_fields():
         for w in ms_scroll.winfo_children():
             w.destroy()
@@ -202,15 +221,16 @@ def open_gpa_plus():
                 boxes.append(e)
             ms_entries.append(boxes)
 
+#Actual math for the calc if its wrong pls change idk what the actual formula is bruh
     def ms_calc_total(isa1, isa2, assignment, esa, credit, lab=0):
         if credit == 2:
-            return (isa1 / 30 * 15) + (isa2 / 30 * 15) + (esa / 100 * 70)
+            return ((isa1 / 2) + (isa2 / 2) + ((esa*7)/10) )
         elif credit in [3, 4]:
-            return isa1 + isa2 + assignment + esa
+            return ((isa1/2) + (isa2/2) + assignment + (esa/2))
         elif credit == 5:
-            return (isa1 + isa2 + assignment + esa + lab) / 120 * 100
+            return ((((isa1/2) + (isa2/2) + assignment + (esa/2) + lab)*120)/100)
         else:
-            raise ValueError("Credit must be 2–5")
+            raise ValueError("Credit must be 2-5")
 
     def ms_grade_point(total):
         if total >= 90: return 10
@@ -220,7 +240,7 @@ def open_gpa_plus():
         elif total >= 50: return 6
         elif total >= 40: return 5
         else: return 0
-
+#the marks to sgpa function
     def calculate_ms_sgpa():
         try:
             total_points = 0
@@ -240,7 +260,7 @@ def open_gpa_plus():
             ctk.CTkLabel(popup, text=f"SGPA: {sgpa}", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(expand=True)
         except Exception as e:
             messagebox.showerror("Error", str(e))
-
+#UI buttons to reconfigure if anyone wants to
     btn_box2 = ctk.CTkFrame(marks_frame, fg_color="transparent")
     btn_box2.pack(pady=10)
     ctk.CTkButton(btn_box2, text="Create Fields", command=create_ms_fields, **btn_style).pack(side="left", padx=15)
@@ -256,6 +276,8 @@ def open_gpa_plus():
     cg_scroll = ctk.CTkScrollableFrame(cgpa_frame, width=880, height=260, label_text="Enter SGPA for Each Semester")
     cg_scroll.pack(pady=10)
 
+
+#actual code for the sgpa to cgpa
     def create_cg_fields():
         for w in cg_scroll.winfo_children():
             w.destroy()
@@ -283,10 +305,10 @@ def open_gpa_plus():
                 val = e.get().strip()
                 if val == "": continue
                 sg = float(val)
-                if not (0 <= sg <= 10): raise ValueError("SGPA must be between 0 and 10.")
+                if not (0 <= sg <= 10): raise ValueError("SGPA must be between 0 and 10.")  #Value errors 
                 total += sg
                 count += 1
-            cgpa = round(total / count, 2)
+            cgpa = round(total / count, 2) # Formula
             popup = ctk.CTkToplevel(gpa_plus_window)
             popup.title("CGPA Result")
             popup.geometry("300x150")
@@ -294,7 +316,7 @@ def open_gpa_plus():
             ctk.CTkLabel(popup, text=f"CGPA: {cgpa}", font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(expand=True)
         except Exception as e:
             messagebox.showerror("Error", str(e))
-
+#UI for the sgpa to cgpa
     btn_box3 = ctk.CTkFrame(cgpa_frame, fg_color="transparent")
     btn_box3.pack(pady=10)
     ctk.CTkButton(btn_box3, text="Create Fields", command=create_cg_fields, **btn_style).pack(side="left", padx=15)
@@ -303,13 +325,14 @@ def open_gpa_plus():
     show_frame(letter_frame)
 
 
-
+#todo list backend
 def open_todo_list():
     todo_window = ctk.CTkToplevel(root)
     todo_window.title("Your To-Do List")
     todo_window.geometry("500x400") 
 
-    def add_task():
+
+    def add_task():  #add tasks
         task = task_entry.get().strip()
         if task:
             task_listbox.insert(tk.END, task)
@@ -317,26 +340,28 @@ def open_todo_list():
                 file.write(task + "\n")
             task_entry.delete(0, tk.END)
 
-    def clear_tasks():
+    def clear_tasks():  #delete all tasks
         task_listbox.delete(0, tk.END)
         open("Todolist.txt", "w").close()
 
-    def load_tasks():
+    def load_tasks():  #check file if tasks exisst , if yes load said tasks
         try:
             with open("Todolist.txt", "r") as file:
                 for line in file:
                     task_listbox.insert(tk.END, line.strip())
-        except FileNotFoundError:
+        except FileNotFoundError: # will just create a file when writing or adding a task so just pass the error raised
             pass
 
-    def delete_selected():
-        selected = task_listbox.curselection()
+    def delete_selected():  # deleting tasks if selected (1 at a time)
+        selected = task_listbox.curselection() # this selects the task clicked 
         for index in reversed(selected):
             task_listbox.delete(index)
         with open("Todolist.txt", "w") as file:
             for i in range(task_listbox.size()):
                 file.write(task_listbox.get(i) + "\n")
 
+
+# UI For the todo list
     task_entry = ctk.CTkEntry(todo_window, font=("Segoe UI", 18), width=280, corner_radius=15, height=36)
     task_entry.pack(pady=10)
 
@@ -354,12 +379,14 @@ def open_todo_list():
 
     load_tasks()
 
+
+# code for the timer 
 def open_ypt():
     ypt_window = ctk.CTkToplevel(root)
     ypt_window.title("Study Timer")
     ypt_window.geometry("650x520")
 
-    ctk.CTkLabel(ypt_window, text="Study Timer", font=("Segoe UI", 24, "bold"), text_color="#1e90ff").pack(pady=20)
+    ctk.CTkLabel(ypt_window, text="Study Timer", font=("Segoe UI", 24, "bold"), text_color="#1e90ff").pack(pady=20) # Button and colours if one wishes to change
 
     subjects = {}
     current_subject = tk.StringVar(value="Select Subject")
@@ -367,35 +394,36 @@ def open_ypt():
     subject_entry = ctk.CTkEntry(ypt_window, placeholder_text="Enter Subject", corner_radius=15,height=40, width=240,font=("Segoe UI", 16))
     subject_entry.pack(pady=10)
 
+# fucntions for said buttons
     def add_subject():
         subject = subject_entry.get().strip()
-        if subject and subject not in subjects:
+        if subject and subject not in subjects:  # if not already in that list
             subjects[subject] = 0
-            subject_menu.configure(values=list(subjects.keys()))
-            current_subject.set(subject)
-        subject_entry.delete(0, "end")
+            subject_menu.configure(values=list(subjects.keys()))  # configure cuz the button already is defined
+            current_subject.set(subject)  # gets the subject ready to append
+        subject_entry.delete(0, "end")  # clears the textbox for next entry
 
     ctk.CTkButton(ypt_window, text="Add Subject", command=add_subject, text_color="#1e90ff", corner_radius=20, height=40, width=140).pack(pady=5)
 
     subject_menu = ctk.CTkOptionMenu(ypt_window, values=["No subjects yet"], variable=current_subject)
-    subject_menu.pack(pady=10)
+    subject_menu.pack(pady=10) # option menu is like a drop down u can see it while selecting that thing
 
     time_label = ctk.CTkLabel(ypt_window, text="00:00:00", font=("Segoe UI", 28, "bold"), text_color="white")
     time_label.pack(pady=15)
-
+# Pre defining the variables used for the timer
     running = False
     start_time = 0
     elapsed = 0
 
     def update_timer():
-        nonlocal elapsed
-        if running:
-            elapsed = time.time() - start_time
-            formatted = time.strftime("%H:%M:%S", time.gmtime(elapsed))
+        nonlocal elapsed  # nonlocal as to be able to change said variable
+        if running:  # checks if already there is sum elapsed time and if not if it is running or not
+            elapsed = time.time() - start_time  # elapsed time formula
+            formatted = time.strftime("%H:%M:%S", time.gmtime(elapsed)) # this is just the formula ig dont ask em how it works
             time_label.configure(text=formatted)
-            ypt_window.after(500, update_timer)
+            ypt_window.after(500, update_timer) # it updates after these many seconds ig ( its hardcoded dk why didnt question why)
 
-    def start_timer():
+    def start_timer():   # start running teh timer    adds elapsed time if any
         nonlocal running, start_time
         current = current_subject.get()
         if not running and current != "Select Subject" and current in subjects:
@@ -403,7 +431,7 @@ def open_ypt():
             start_time = time.time() - subjects[current]
             update_timer()
 
-    def stop_timer():
+    def stop_timer():    # stops the timers and displays the amy of time studied
         nonlocal running
         current = current_subject.get()
         if running and current in subjects:
@@ -411,7 +439,7 @@ def open_ypt():
             subjects[current] = elapsed
 
     def reset_timer():
-        nonlocal running, elapsed
+        nonlocal running, elapsed  # just deletes all the values for the elapsed and runnning timers
         running = False
         elapsed = 0
         current = current_subject.get()
@@ -419,6 +447,8 @@ def open_ypt():
             subjects[current] = 0  
             time_label.configure(text="00:00:00")
     
+
+# UI and buttons for the timer ( if u want to reconfigure)    
     btn_frame = ctk.CTkFrame(ypt_window)
     btn_frame.pack(pady=10)
 
@@ -434,7 +464,7 @@ def open_ypt():
     stats_box = tk.Text(ypt_window, height=8, width=40, font=("Consolas", 13), bg="#1e1e1e", fg="white")
     stats_box.pack(pady=5)
 
-    def update_stats():
+    def update_stats():  # updates the stats like elapsed time and that type of things
         stats_box.delete("1.0", tk.END)
         for subj, secs in subjects.items():
             formatted = time.strftime("%H:%M:%S", time.gmtime(secs))
@@ -443,12 +473,12 @@ def open_ypt():
 
     update_stats()
 
-
+# simples gpa calc code 
 def open_gpa_calculator():
     gpa_window = ctk.CTkToplevel(root)
     gpa_window.title("GPA Calculator")
     gpa_window.geometry("520x550")
-
+# UI and the textbox and lables for the marks and things
     def label(text):
         ctk.CTkLabel(gpa_window, text=text, font=("Segoe UI", 15), text_color="#1e90ff").pack(pady=4)
 
@@ -479,6 +509,8 @@ def open_gpa_calculator():
     result_label = ctk.CTkLabel(gpa_window, text="", font=("Segoe UI", 15), wraplength=320, justify="left", text_color="#1e90ff")
     result_label.pack(pady=10)
 
+
+# Back end the acutal code for the calc ( simple stuff just look at the variable names)
     def calculate_gpa():
         try:
             subject = subject_entry.get().strip().lower()
@@ -518,7 +550,7 @@ def open_gpa_calculator():
     ctk.CTkButton(gpa_window, text="Calculate GPA", command=calculate_gpa,
                   text_color="#1e90ff", corner_radius=15, height=40, width=160).pack(pady=10)
 
-
+# code for the qr code / book corner 
 def open_qr_code():
     qr_window = ctk.CTkToplevel(root)
     qr_window.title("QR Code for Every TextBook Needed")
@@ -531,7 +563,7 @@ def open_qr_code():
 
     subject_var = tk.StringVar(value="")  #add the subjects here
 
-    subjects = {
+    subjects = {      # storing the subjects and what they map to
         "Maths 1": "maths1",
         "Maths 2": "maths2",
         "Chemistry": "chemistry",
@@ -557,8 +589,8 @@ def open_qr_code():
         if subject == "":
             qr_label.configure(text="Please select a subject.")
             return
-
-        url_map = {
+#storing the mapped urls and subject we do offer
+        url_map = {  
             "maths1": "https://drive.google.com/drive/folders/1gYFT1RvJD5XmsquB99-vXC5xBWV9EzZZ",
             "maths2": "https://drive.google.com/drive/folders/1iaewOilIhQZZgfCKqDJeFC2lty7g9AQk",
             "chemistry": "https://drive.google.com/drive/folders/1yHNKMxDFvf_FopJ-ZCDNKRlGleTFQZcN",
@@ -575,6 +607,8 @@ def open_qr_code():
 
         book_url = url_map.get(subject, "") + subject.replace(" ", "_").lower()
 
+
+# QR code specificatios ( pls dont touch or change the version and box and border size configs)
         qr = qrcode.QRCode(version=1, box_size=10, border=4)
         qr.add_data(book_url)
         qr.make(fit=True)
@@ -587,7 +621,7 @@ def open_qr_code():
     ctk.CTkButton(qr_window, text="Generate QR Code", command=generate_qr).pack(pady=10)
 
 
-
+# Code for DOOM BOT
 def open_llm():
     llm_window = ctk.CTkToplevel(root)
     llm_window.title("Any Doubts you might have gets solved")
@@ -598,8 +632,8 @@ def open_llm():
  
     label("Enter your doubt (Please enter exit if conversation is completed).")
 
-
-    llm_entry = ctk.CTkEntry(llm_window,font=("Segoe UI", 15),corner_radius=12,height=33,width=500)
+# UI for the response box and the doubt text box
+    llm_entry = ctk.CTkEntry(llm_window,font=("Segoe UI", 15),corner_radius=12,height=33,width=500) 
     llm_entry.pack(pady=(12, 6))
     
 
@@ -616,15 +650,15 @@ def open_llm():
             response_box.insert("end", " Please enter a question.\n\n")
             return
 
-        try:
-            response = ollama.chat(model="DOOM_BOT_ASSITANT",messages=[{"role": "user", "content": user_doubt}])
+        try:  
+            response = ollama.chat(model="DOOM_BOT_ASSITANT",messages=[{"role": "user", "content": user_doubt}])  # Actual bot calling and chat setting up details ( could be replaced by genai if needed or seen necessary)
 
             reply = response["message"]["content"]
 
           
             response_box.insert("end", f" You: {user_doubt}\n\n=> Response: {reply}\n\n")
             response_box.see("end")  
-            llm_entry.delete(0, "end")
+            llm_entry.delete(0, "end") # clears the text (doubt ) box
 
         except Exception as e:
             response_box.insert("end", f" Error: {e}\n\n")
@@ -650,6 +684,8 @@ title.pack(pady=30)
 button_frame = tk.Frame(root)
 button_frame.pack(pady=12)
 
+
+# First Frame button style could be changed if needed to 
 btn_style = {
     "corner_radius": 25,
     "height": 70,
@@ -663,12 +699,14 @@ btn_style = {
 frame = ctk.CTkFrame(root)
 frame.pack(pady=20)  
 
+
+# grid and features buttons
 ctk.CTkButton(frame, text="Attendance Calculator", command=open_attendance_calculator, **btn_style).grid(row=0, column=0, padx=10, pady=10)
 ctk.CTkButton(frame, text="To-Do List", command=open_todo_list, **btn_style).grid(row=0, column=1, padx=10, pady=10)
-ctk.CTkButton(frame, text="Grade Calculator", command=open_gpa_calculator, **btn_style).grid(row=1, column=0, padx=10, pady=10)
-ctk.CTkButton(frame, text="Study Timer", command=open_ypt, **btn_style).grid(row=1, column=1, padx=10, pady=10)
-ctk.CTkButton(frame, text="Book Corner", command=open_qr_code, **btn_style ).grid(row=3, column=1 ,padx=10, pady=10)
-ctk.CTkButton(frame, text="DOOM Bot", command=open_llm, **btn_style ).grid(row=3, column=0 ,padx=10, pady=10)
-ctk.CTkButton(frame, text="GPA Calculator", command=open_gpa_plus, **btn_style).grid(row=4, column=0, padx=10, pady=10)
+ctk.CTkButton(frame, text="Grade Calculator", command=open_gpa_calculator, **btn_style).grid(row=0, column=2, padx=10, pady=10)
+ctk.CTkButton(frame, text="Study Timer", command=open_ypt, **btn_style).grid(row=2, column=1, padx=10, pady=10)
+ctk.CTkButton(frame, text="Book Corner", command=open_qr_code, **btn_style ).grid(row=1, column=1 ,padx=10, pady=10)
+ctk.CTkButton(frame, text="DOOM Bot", command=open_llm, **btn_style ).grid(row=1, column=2 ,padx=10, pady=10)
+ctk.CTkButton(frame, text="GPA Calculator", command=open_gpa_plus, **btn_style).grid(row=1, column=0, padx=10, pady=10)
 
 root.mainloop()
