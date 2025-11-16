@@ -1,12 +1,6 @@
 import customtkinter as ctk
 from tkinter import messagebox
-from gpa.plus_logic import (
-    calculate_sgpa_letter,
-    calculate_sgpa_marks,
-    calculate_cgpa,
-    ms_calc_total,
-    grade_points
-)
+from gpa.plus_logic import (calculate_sgpa_letter,calculate_sgpa_marks,calculate_cgpa,ms_calc_total,grade_points)
 
 def open_gpa_plus(root):
 
@@ -19,33 +13,29 @@ def open_gpa_plus(root):
     #Buttons
     ctk.CTkLabel(gpa_plus_window, text="GPA Calculator ++",
                  font=("Segoe UI", 34, "bold"), text_color="#1e90ff").pack(pady=25)
-
+#frame for the buttons
     navigation_frame = ctk.CTkFrame(gpa_plus_window, fg_color="transparent")
     navigation_frame.pack(pady=(10, 20))
 
-    btn_style = {
-        "corner_radius": 12,
-        "width": 220,
-        "height": 50,
-        "font": ("Segoe UI", 16, "bold"),
-        "fg_color": "#2a2a2a",
-        "text_color": "#1e90ff",
-        "hover_color": "#1e1e1e",
-    }
+#button style 
+    btn_style = {"corner_radius": 12,"width": 220,"height": 50,"font": ("Segoe UI", 16, "bold"),"fg_color": "#2a2a2a","text_color": "#1e90ff","hover_color": "#1e1e1e",}
 
-    container = ctk.CTkFrame(gpa_plus_window, fg_color="#1e1e1e", corner_radius=12)
+#frame for the frame
+    container =ctk.CTkFrame(gpa_plus_window, fg_color="#1e1e1e", corner_radius=12)
     container.pack(expand=True, padx=20, pady=20)
 
+#frames for the info
     letter_frame = ctk.CTkFrame(container, fg_color="#232323")
     marks_frame = ctk.CTkFrame(container, fg_color="#232323")
     cgpa_frame = ctk.CTkFrame(container, fg_color="#232323")
 
     for f in (letter_frame, marks_frame, cgpa_frame):
-        f.grid(row=0, column=0, sticky="nsew")
+        f.grid(row=0, column=0, sticky="nsew") #grid setting for the info inner frames
 
     def show_frame(f):
-        f.tkraise()
+        f.tkraise()#brings out the clicked frame above all 
 
+#All the buttons for the 3 things
     ctk.CTkButton(navigation_frame, text="Letter Grades → SGPA",
                   command=lambda: show_frame(letter_frame), **btn_style).pack(side="left", padx=10)
 
@@ -60,13 +50,15 @@ def open_gpa_plus(root):
                  font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(pady=(20, 10))
 
     ctk.CTkLabel(letter_frame, text="Number of Subjects:", font=("Segoe UI", 18)).pack()
+
+    #letter grade and credits textbox
     lg_entry = ctk.CTkEntry(letter_frame, width=120, height=40,
                             font=("Segoe UI", 16), justify="center")
     lg_entry.pack(pady=8)
 
     lg_entries = []
     lg_scroll = ctk.CTkScrollableFrame(letter_frame, width=880, height=260,
-                                       label_text="Enter Grades & Credits")
+                                       label_text="Enter Grades and Credits")
     lg_scroll.pack(pady=10)
 
     #Creating the fields and checking if there are pre existing entries available in the window

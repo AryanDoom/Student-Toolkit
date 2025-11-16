@@ -2,27 +2,20 @@ import customtkinter as ctk
 from attendance.attendance_logic import calculate_attendance
 
 def open_attendance_calculator(root):
-    window = ctk.CTkToplevel(root)
-    window.title("Attendance Predictor")
-    window.geometry("900x600")
+    window_attendance = ctk.CTkToplevel(root)
+    window_attendance.title("Attendance Predictor")
+    window_attendance.geometry("900x600")
 
     # labels and the button
-    ctk.CTkLabel(window, text="Current Attendance %", font=("Segoe UI", 18)).pack(pady=10)
-    current_entry = ctk.CTkEntry(window, font=("Segoe UI", 18), corner_radius=15, height=40, width=200)
+    ctk.CTkLabel(window_attendance, text="Current Attendance %", font=("Segoe UI", 18)).pack(pady=10)
+    current_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=15, height=40, width=200)
     current_entry.pack(pady=10)
 
-    ctk.CTkLabel(window, text="Target Attendance %", font=("Segoe UI", 18)).pack(pady=10)
-    target_entry = ctk.CTkEntry(window, font=("Segoe UI", 18), corner_radius=15, height=40, width=200)
+    ctk.CTkLabel(window_attendance, text="Target Attendance %", font=("Segoe UI", 18)).pack(pady=10)
+    target_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=15, height=40, width=200)
     target_entry.pack(pady=10)
 
-    result_label = ctk.CTkLabel(
-        window,
-        text="",
-        font=("Segoe UI", 16),
-        text_color="#1e90ff",
-        wraplength=500,
-        justify="left"
-    )
+    result_label = ctk.CTkLabel(window_attendance,text="",font=("Segoe UI", 16),text_color="#1e90ff",wraplength=500,justify="left")
     result_label.pack(pady=10)
 
     #-----------------Backend of the calculator-----------------------
@@ -53,12 +46,4 @@ def open_attendance_calculator(root):
         except ValueError:
             result_label.configure(text="Please enter valid numbers.")  # to catch all the error and out of bound values
 
-    ctk.CTkButton(
-        window,
-        text="Calculate",
-        command=calculate_attendance_plan,
-        text_color="#1e90ff",
-        corner_radius=20,
-        height=44,
-        width=160
-    ).pack(pady=18)
+    ctk.CTkButton(window_attendance,text="Calculate",command=calculate_attendance_plan,text_color="#1e90ff",corner_radius=20,height=44,width=160).pack(pady=18)

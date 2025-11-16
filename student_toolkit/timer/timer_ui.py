@@ -1,13 +1,10 @@
 import customtkinter as ctk
 import tkinter as tk
 import time
-from timer.timer_logic import (
-    start_timer_logic,
-    stop_timer_logic,
-    reset_timer_logic,
-    format_time
-)
+from timer.timer_logic import (start_timer_logic,stop_timer_logic,reset_timer_logic,format_time)
 
+
+#Main window
 def open_ypt(root):
     ypt_window = ctk.CTkToplevel(root)
     ypt_window.title("Study Timer")
@@ -19,14 +16,7 @@ def open_ypt(root):
     subjects = {}
     current_subject = tk.StringVar(value="Select Subject")
 
-    subject_entry = ctk.CTkEntry(
-        ypt_window,
-        placeholder_text="Enter Subject",
-        corner_radius=15,
-        height=40,
-        width=240,
-        font=("Segoe UI", 16)
-    )
+    subject_entry = ctk.CTkEntry(ypt_window,placeholder_text="Enter Subject",corner_radius=15,height=40,width=240,font=("Segoe UI", 16))
     subject_entry.pack(pady=10)
 
     # fucntions for said buttons
@@ -38,27 +28,14 @@ def open_ypt(root):
             current_subject.set(subject)  # gets the subject ready to append
         subject_entry.delete(0, "end")  # clears the textbox for next entry
 
-    ctk.CTkButton(
-        ypt_window,
-        text="Add Subject",
-        command=add_subject,
-        text_color="#1e90ff",
-        corner_radius=20,
-        height=40,
-        width=140
-    ).pack(pady=5)
+    ctk.CTkButton(ypt_window,text="Add Subject",command=add_subject,text_color="#1e90ff",corner_radius=20,height=40,width=140).pack(pady=5)
 
     subject_menu = ctk.CTkOptionMenu(
         ypt_window, values=["No subjects yet"], variable=current_subject
     )
     subject_menu.pack(pady=10)  # option menu is like a drop down u can see it while selecting that thing
 
-    time_label = ctk.CTkLabel(
-        ypt_window,
-        text="00:00:00",
-        font=("Segoe UI", 28, "bold"),
-        text_color="white"
-    )
+    time_label = ctk.CTkLabel(ypt_window,text="00:00:00",font=("Segoe UI", 28, "bold"),text_color="white")
     time_label.pack(pady=15)
 
     # Pre defining the variables used for the timer
@@ -90,9 +67,7 @@ def open_ypt(root):
     def reset_timer():
         nonlocal running, elapsed
         current = current_subject.get()
-        running, elapsed, subjects_updated = reset_timer_logic(
-            running, elapsed, current, subjects
-        )
+        running, elapsed, subjects_updated = reset_timer_logic(running, elapsed, current, subjects)
         subjects.update(subjects_updated)
         time_label.configure(text="00:00:00")
 
@@ -100,48 +75,15 @@ def open_ypt(root):
     btn_frame = ctk.CTkFrame(ypt_window)
     btn_frame.pack(pady=10)
 
-    ctk.CTkButton(
-        btn_frame,
-        text="Start",
-        command=start_timer,
-        text_color="#1e90ff",
-        corner_radius=20,
-        width=90
-    ).pack(side="left", padx=10)
+    ctk.CTkButton(btn_frame,text="Start",command=start_timer,text_color="#1e90ff",corner_radius=20,width=90).pack(side="left", padx=10)
 
-    ctk.CTkButton(
-        btn_frame,
-        text="Stop",
-        command=stop_timer,
-        text_color="#1e90ff",
-        corner_radius=20,
-        width=90
-    ).pack(side="left", padx=10)
+    ctk.CTkButton(btn_frame,text="Stop",command=stop_timer,text_color="#1e90ff",corner_radius=20,width=90).pack(side="left", padx=10)
 
-    ctk.CTkButton(
-        btn_frame,
-        text="Reset",
-        command=reset_timer,
-        text_color="#1e90ff",
-        corner_radius=20,
-        width=90
-    ).pack(side="left", padx=10)
+    ctk.CTkButton(btn_frame,text="Reset",command=reset_timer,text_color="#1e90ff",corner_radius=20,width=90).pack(side="left", padx=10)
 
-    ctk.CTkLabel(
-        ypt_window,
-        text="Study Time per Subject",
-        font=("Segoe UI", 16),
-        text_color="#1e90ff"
-    ).pack(pady=10)
+    ctk.CTkLabel(ypt_window,text="Study Time per Subject",font=("Segoe UI", 16),text_color="#1e90ff").pack(pady=10)
 
-    stats_box = tk.Text(
-        ypt_window,
-        height=8,
-        width=40,
-        font=("Consolas", 13),
-        bg="#1e1e1e",
-        fg="white"
-    )
+    stats_box = tk.Text(ypt_window,height=8,width=40,font=("Consolas", 13),bg="#1e1e1e",fg="white")
     stats_box.pack(pady=5)
 
     # updates the stats like elapsed time and that type of things

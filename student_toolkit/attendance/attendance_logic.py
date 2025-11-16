@@ -8,6 +8,7 @@ def calculate_attendance(current_percentage, target_percentage):
     if not (0 <= current_percentage <= 100 and 0 < target_percentage <= 100):
         return {"error": "Invalid input. Enter percentages between 0 and 100."}
 
+    # All the variable needed for the calculation
     today = date.today()
     end_sem = date(2026, 1, 2)
     days_left = (end_sem - today).days
@@ -16,9 +17,7 @@ def calculate_attendance(current_percentage, target_percentage):
 
     current_total_classes = 100
     current_attended = (current_percentage / 100) * current_total_classes
-    target_total_attendance = (target_percentage / 100) * (
-        current_total_classes + total_classes_left
-    )
+    target_total_attendance = (target_percentage / 100) * (current_total_classes + total_classes_left)
 
     classes_needed = max(int(target_total_attendance - current_attended), 0)
     avg_classes_needed_per_week = round(classes_needed / weeks_left, 2)
@@ -27,11 +26,5 @@ def calculate_attendance(current_percentage, target_percentage):
 
     if avg_classes_needed_per_week > class_per_week:
         return {"warning": "ggs bro issa ova, better luck next time"}  # change the code when to submit and make it professional
-
-    return {
-        "classes_needed": classes_needed,
-        "total_left": total_classes_left,
-        "avg_week": avg_classes_needed_per_week,
-        "bunk_week": bunkable_classes,
-        "bunk_total": total_bunkable_classes,
-    }
+    # returning a dict so we can access these elements easier in the ui
+    return {"classes_needed": classes_needed,"total_left": total_classes_left,"avg_week": avg_classes_needed_per_week,"bunk_week": bunkable_classes,"bunk_total": total_bunkable_classes,}

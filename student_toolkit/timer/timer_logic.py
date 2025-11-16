@@ -1,5 +1,5 @@
 import time
-
+#simple stuff bro just read up on the timer library
 def format_time(seconds):
     return time.strftime("%H:%M:%S", time.gmtime(seconds))
 

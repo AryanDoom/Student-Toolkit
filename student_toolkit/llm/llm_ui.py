@@ -1,53 +1,59 @@
 import customtkinter as ctk
-from llm.doom_engine import ask_llm
+import tkinter as tk
+from llm.doom_engine_genai import what_would_doom_do
 
+#Main window 
 def open_llm(root):
     llm_window = ctk.CTkToplevel(root)
-    llm_window.title("Any Doubts you might have gets solved")
-    llm_window.geometry("1000x1000")
+    llm_window.title("DOOM Bot - Doubt Solver")
+    llm_window.geometry("900x700")
+    llm_window.configure(fg_color="#121212")   
 
-    def label(text):
-        ctk.CTkLabel(llm_window, text=text, font=("Segoe UI", 15), text_color="#006d12").pack(pady=(15, 5))
+    # ----- HEADER -----
+    header = ctk.CTkLabel(llm_window,text=" DOOM Bot - Ask Your Doubts",font=("Segoe UI", 28, "bold"),text_color="#1e90ff")
+    header.pack(pady=20)
 
-    label("Enter your doubt (Please enter exit if conversation is completed).")
+    # ----- Chat frame -----------
+    chat_frame = ctk.CTkFrame(llm_window, fg_color="#1e1e1e", corner_radius=15)
+    chat_frame.pack(pady=10, padx=20, fill="both", expand=True)
 
-    # UI for the response box and the doubt text box
-    llm_entry = ctk.CTkEntry(llm_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=500)
-    llm_entry.pack(pady=(12, 6))
+    response_box = ctk.CTkTextbox(chat_frame,width=820,height=450,wrap="word",font=("Segoe UI", 15),fg_color="#181818",corner_radius=12)
+    response_box.pack(padx=10, pady=10, fill="both", expand=True)
 
-    response_box = ctk.CTkTextbox(llm_window, width=850, height=400, wrap="word", font=("Segoe UI", 15))
-    response_box.pack(pady=15)
+    # ----- INPUT AREA -----
+    input_frame = ctk.CTkFrame(llm_window, fg_color="#121212")
+    input_frame.pack(fill="x", pady=10, padx=20)
 
+    llm_entry = ctk.CTkEntry(input_frame,font=("Segoe UI", 15),corner_radius=12,height=40)
+    llm_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
+
+    ask_btn = ctk.CTkButton(input_frame,text="Ask",command=lambda: get_answer(),fg_color="#1e90ff",hover_color="#1877cc",text_color="black",corner_radius=10,width=120,height=40)
+    ask_btn.pack(side="right")
+
+    # -----  -----
     def get_answer():
         user_doubt = llm_entry.get().strip()
+
+        if not user_doubt:
+            response_box.insert("end", "Please enter a question.\n\n")
+            return
 
         if user_doubt.lower() == "exit":
             llm_window.destroy()
             return
 
-        if user_doubt == "":
-            response_box.insert("end", " Please enter a question.\n\n")
-            return
-
         try:
-            reply = ask_llm(user_doubt)
+            reply = what_would_doom_do(user_doubt)
 
-            response_box.insert(
-                "end",
-                f" You: {user_doubt}\n\n=> Response: {reply}\n\n"
-            )
+            import datetime
+            time_now = datetime.datetime.now().strftime("[%H:%M]")
+
+            response_box.insert("end", f"{time_now} You: {user_doubt}\n")
+            response_box.insert("end", f"{time_now} DOOM Bot: {reply}\n\n")
             response_box.see("end")
             llm_entry.delete(0, "end")  # clears the text (doubt ) box
 
         except Exception as e:
-            response_box.insert("end", f" Error: {e}\n\n")
+            response_box.insert("end", f"Error: {e}\n\n")
 
-    ctk.CTkButton(
-        llm_window,
-        text="Calculate Response",
-        command=get_answer,
-        text_color="#000000",
-        corner_radius=15,
-        height=40,
-        width=160
-    ).pack(pady=10)
+        llm_entry.delete(0, "end")

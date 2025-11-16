@@ -8,3 +8,4 @@ def ask_llm(user_input):
     )
     reply = response["message"]["content"]
     return reply
+#Gen ai  set up is done, the calling in ui file and main.py is done through the the genai bot in the git pushed files 

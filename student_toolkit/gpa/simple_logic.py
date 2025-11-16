@@ -1,4 +1,4 @@
-# Back end the acutal code for the calc ( simple stuff just look at the variable names)
+# Back end of the actual code for the calc ( simple stuff just look at the variable names)
 def calculate_gpa(subject, isa1, isa2, assignment, esa, lab):
     isa1 = min(isa1, 40) / 2
     isa2 = min(isa2, 40) / 2
