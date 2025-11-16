@@ -32,7 +32,7 @@ def generate_qr_image(subject):
     qr.add_data(book_url)
     qr.make(fit=True)  #again does the same , lets the qr code be whatever it wants to be
 
-    img = qr.make_image(fill_color="#1e90ff", back_color="black")
+    img = qr.make_image(fill_color="#035d36", back_color="black")
     img = img.resize((200, 200))  #makes it a uniform size for the ui ( idk how but it will be too small or too big if this line is not there)
 
     return img

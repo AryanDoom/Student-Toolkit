@@ -5,10 +5,11 @@ def open_gpa_calculator(root):
     gpa_window = ctk.CTkToplevel(root)
     gpa_window.title("GPA Calculator")
     gpa_window.geometry("520x550")
+    gpa_window.configure(fg_colour="#000000")
 
     # UI and the textbox and labels for the marks and things
     def label(text):
-        ctk.CTkLabel(gpa_window, text=text, font=("Segoe UI", 15), text_color="#1e90ff").pack(pady=4)
+        ctk.CTkLabel(gpa_window, text=text, font=("Segoe UI", 15), text_color="#ffffff").pack(pady=4)
 
     label("Subject Name")
     subject_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
@@ -34,7 +35,7 @@ def open_gpa_calculator(root):
     lab_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
     lab_entry.pack(pady=4)
 
-    result_label = ctk.CTkLabel(gpa_window,text="",font=("Segoe UI", 15),wraplength=320,justify="left",text_color="#1e90ff")
+    result_label = ctk.CTkLabel(gpa_window,text="",font=("Segoe UI", 15),wraplength=320,justify="left",text_color="#f4f4f4")
     result_label.pack(pady=10)
 
    
@@ -58,4 +59,4 @@ def open_gpa_calculator(root):
         except ValueError:
             result_label.configure(text="Please enter valid numbers.")
 
-    ctk.CTkButton(gpa_window,text="Calculate GPA",command=on_calculate,text_color="#1e90ff",corner_radius=15,height=40,width=160).pack(pady=10)
+    ctk.CTkButton(gpa_window,text="Calculate GPA",command=on_calculate,text_color="#ffffff",corner_radius=8,height=40,width=160,hover_color= "#0E3C10",fg_color="#375638").pack(pady=10)

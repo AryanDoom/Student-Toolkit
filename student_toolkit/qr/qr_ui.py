@@ -10,10 +10,10 @@ def open_qr_code(root):
     qr_window = ctk.CTkToplevel(root)
     qr_window.title("QR Code Library")
     qr_window.geometry("520x700")
-    qr_window.configure(fg_color="#1a1a1a")
+    qr_window.configure(fg_color="#111111")
 
     # ---------- HEADER ----------
-    title = ctk.CTkLabel(qr_window,text=" Textbook QR Generator",font=("Segoe UI", 24, "bold"),text_color="#1e90ff")
+    title = ctk.CTkLabel(qr_window,text=" Textbook QR Generator",font=("Segoe UI", 24, "bold"),text_color="#f9f9f9")
     title.pack(pady=(20, 10))
 
     # ---------- Subject selecting frame----------
@@ -62,7 +62,7 @@ def open_qr_code(root):
     qr_label.pack(pady=15)   
 
     # ---------- the link -------------------
-    link_label = ctk.CTkLabel( qr_window, text="", font=("Segoe UI", 14), text_color="#1e90ff", cursor="hand2")
+    link_label = ctk.CTkLabel( qr_window, text="", font=("Segoe UI", 14), text_color="#ffffff", cursor="hand2")
     link_label.pack(pady=5)
 
     def open_link(event):
@@ -75,7 +75,7 @@ def open_qr_code(root):
         subject = subject_var.get()
 
         if subject == "":
-            qr_label.configure(text="Please select a subject.",font=("Segoe UI", 16),text_color="#1e90ff")
+            qr_label.configure(text="Please select a subject.",font=("Segoe UI", 16),text_color="#ffffff")
             link_label.configure(text="")
             return
 
@@ -92,6 +92,5 @@ def open_qr_code(root):
     btn_frame = ctk.CTkFrame(qr_window, fg_color="#1a1a1a")
     btn_frame.pack(pady=(5, 20))
 
-    ctk.CTkButton(btn_frame,text="Generate QR Code",command=generate_qr,corner_radius=12,height=40,fg_color="#1e90ff",hover_color="#1877cc",text_color="#000001",font=("Segoe UI", 16)
-    ).pack(padx=2)
+    ctk.CTkButton(btn_frame,text="Generate QR Code",command=generate_qr,corner_radius=8,height=40,hover_color= "#0E3C10",fg_color="#375638",text_color="#FFFFFF",font=("Segoe UI", 16)).pack(padx=2)
 

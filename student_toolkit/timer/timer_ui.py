@@ -9,14 +9,15 @@ def open_ypt(root):
     ypt_window = ctk.CTkToplevel(root)
     ypt_window.title("Study Timer")
     ypt_window.geometry("650x520")
+    ypt_window.configure(fg_color="#111111")
 
     ctk.CTkLabel(ypt_window, text="Study Timer", font=("Segoe UI", 24, "bold"),
-                 text_color="#1e90ff").pack(pady=20)  # Button and colours if one wishes to change
+                 text_color="#ffffff").pack(pady=20)  # Button and colours if one wishes to change
 
     subjects = {}
     current_subject = tk.StringVar(value="Select Subject")
 
-    subject_entry = ctk.CTkEntry(ypt_window,placeholder_text="Enter Subject",corner_radius=15,height=40,width=240,font=("Segoe UI", 16))
+    subject_entry = ctk.CTkEntry(ypt_window,placeholder_text="Enter Subject",corner_radius=8,height=40,width=240,font=("Segoe UI", 16))
     subject_entry.pack(pady=10)
 
     # fucntions for said buttons
@@ -28,7 +29,7 @@ def open_ypt(root):
             current_subject.set(subject)  # gets the subject ready to append
         subject_entry.delete(0, "end")  # clears the textbox for next entry
 
-    ctk.CTkButton(ypt_window,text="Add Subject",command=add_subject,text_color="#1e90ff",corner_radius=20,height=40,width=140).pack(pady=5)
+    ctk.CTkButton(ypt_window,text="Add Subject",command=add_subject,text_color="#ffffff",corner_radius=8,height=40,width=140,hover_color= "#0E3C10",fg_color="#375638").pack(pady=5)
 
     subject_menu = ctk.CTkOptionMenu(
         ypt_window, values=["No subjects yet"], variable=current_subject
@@ -72,16 +73,16 @@ def open_ypt(root):
         time_label.configure(text="00:00:00")
 
     # UI and buttons for the timer ( if u want to reconfigure)
-    btn_frame = ctk.CTkFrame(ypt_window)
+    btn_frame = ctk.CTkFrame(ypt_window,fg_color="#111111")
     btn_frame.pack(pady=10)
 
-    ctk.CTkButton(btn_frame,text="Start",command=start_timer,text_color="#1e90ff",corner_radius=20,width=90).pack(side="left", padx=10)
+    ctk.CTkButton(btn_frame,text="Start",command=start_timer,text_color="#ffffff",corner_radius=8,width=90,hover_color= "#0E3C10",fg_color="#375638").pack(side="left", padx=10)
 
-    ctk.CTkButton(btn_frame,text="Stop",command=stop_timer,text_color="#1e90ff",corner_radius=20,width=90).pack(side="left", padx=10)
+    ctk.CTkButton(btn_frame,text="Stop",command=stop_timer,text_color="#ffffff",corner_radius=8,width=90,hover_color= "#0E3C10",fg_color="#375638").pack(side="left", padx=10)
 
-    ctk.CTkButton(btn_frame,text="Reset",command=reset_timer,text_color="#1e90ff",corner_radius=20,width=90).pack(side="left", padx=10)
+    ctk.CTkButton(btn_frame,text="Reset",command=reset_timer,text_color="#ffffff",corner_radius=8,width=90,hover_color= "#0E3C10",fg_color="#375638").pack(side="left", padx=10)
 
-    ctk.CTkLabel(ypt_window,text="Study Time per Subject",font=("Segoe UI", 16),text_color="#1e90ff").pack(pady=10)
+    ctk.CTkLabel(ypt_window,text="Study Time per Subject",font=("Segoe UI", 16),text_color="#ffffff").pack(pady=10)
 
     stats_box = tk.Text(ypt_window,height=8,width=40,font=("Consolas", 13),bg="#1e1e1e",fg="white")
     stats_box.pack(pady=5)

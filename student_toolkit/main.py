@@ -1,8 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 
-
-#----------------ALL THE IMPORTS FROM THE FILES IN THIS FOLDER ( do not mess with these)---------------
+# ---------------- IMPORTS (DONT TOUCH) ---------------- #
 from attendance.attendance_ui import open_attendance_calculator
 from gpa.simple_ui import open_gpa_calculator
 from gpa.plus_ui import open_gpa_plus
@@ -11,38 +10,68 @@ from timer.timer_ui import open_ypt
 from qr.qr_ui import open_qr_code
 from llm.llm_ui import open_llm
 
-ctk.set_appearance_mode("dark")  #Maim appearance of the ctk window can be changed when needed( the default colour is just the colour of buttons until stated otherwise)
+ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-
-#Main window settings and colour and stuff
-main_window = ctk.CTk() 
+# ---------------- MAIN WINDOW ---------------- #
+main_window = ctk.CTk()
 main_window.title("Student Toolkit")
-main_window.geometry("670x760")
-main_window.configure(bg="#232323")
+main_window.geometry("1050x680")
+main_window.configure(fg_color="#111111")
 
-title = ctk.CTkLabel(main_window,text="Student Toolkit",font=("Segoe UI", 24, "bold"),text_color="#09820F")# Main title
-title.pack(pady=30)
 
-button_frame = ctk.CTkFrame(main_window,fg_color="#35383A",corner_radius=7)# Main button frame
-button_frame.pack(pady=20)
+# ---------------- side buttons -----------------------------------
+sidebar = ctk.CTkFrame(main_window, fg_color="#1a1a1a", corner_radius=0, width=220)
+sidebar.pack(side="left", fill="y")
 
-#How the buttons look like
-btn_style = {"corner_radius": 25,"height": 70,"width": 260,"font": ("Segoe UI", 22),"fg_color": "#292828","text_color": "#1e90ff","hover_color": "#1e1e1e"}
+title_label = ctk.CTkLabel(sidebar,text="Buttons",font=("Segoe UI", 28, "bold"),text_color="#ffffff")
+title_label.pack(pady=(20, 30))
 
-#All The buttons and stuff ( change for the appearance)
-ctk.CTkButton(button_frame, text="Attendance Calculator",command=lambda: open_attendance_calculator(main_window), **btn_style).grid(row=0, column=0, padx=10, pady=10)
 
-ctk.CTkButton(button_frame, text="To-Do List",command=lambda: open_todo_list(main_window), **btn_style).grid(row=0, column=1, padx=10, pady=10)
+def sidebar_btn(text, command):
+    return ctk.CTkButton(sidebar,text=text,command=command,fg_color="transparent",hover_color="#2d2d2d",font=("Segoe UI", 18),anchor="w",text_color="#cccccc")
 
-ctk.CTkButton(button_frame, text="Grade Calculator",command=lambda: open_gpa_calculator(main_window), **btn_style).grid(row=0, column=2, padx=10, pady=10)
 
-ctk.CTkButton(button_frame, text="Study Timer",command=lambda: open_ypt(main_window), **btn_style).grid(row=2, column=1, padx=10, pady=10)
+sidebar_btn("Dashboard", lambda: None).pack(fill="x", pady=8, padx=15)
+sidebar_btn("Attendance", lambda: open_attendance_calculator(main_window)).pack(fill="x", pady=8, padx=15)
+sidebar_btn("GPA Calculator", lambda: open_gpa_calculator(main_window)).pack(fill="x", pady=8, padx=15)
+sidebar_btn("To-Do List", lambda: open_todo_list(main_window)).pack(fill="x", pady=8, padx=15)
+sidebar_btn("Book Corner", lambda: open_qr_code(main_window)).pack(fill="x", pady=8, padx=15)
+sidebar_btn("Study Timer", lambda: open_ypt(main_window)).pack(fill="x", pady=8, padx=15)
+sidebar_btn("DOOM Bot", lambda: open_llm(main_window)).pack(fill="x", pady=8, padx=15)
 
-ctk.CTkButton(button_frame, text="Book Corner",command=lambda: open_qr_code(main_window), **btn_style).grid(row=1, column=1, padx=10, pady=10)
 
-ctk.CTkButton(button_frame, text="DOOM Bot",command=lambda: open_llm(main_window), **btn_style).grid(row=1, column=2, padx=10, pady=10)
+# ---------------- Main buttons----------------------------------------
+content = ctk.CTkFrame(main_window,fg_color="#141414",corner_radius=20)
+content.pack(side="left", fill="both", expand=True, padx=20, pady=20)
 
-ctk.CTkButton(button_frame, text="GPA Calculator ++",command=lambda: open_gpa_plus(main_window), **btn_style).grid(row=1, column=0, padx=10, pady=10)
+header = ctk.CTkLabel(content,text="Welcome to Student Toolkit",font=("Segoe UI", 30, "bold"),text_color="#ffffff")
+header.pack(pady=20)
+
+
+# floating grid container
+grid_frame = ctk.CTkFrame(content,fg_color="#1f1f1f",corner_radius=18)
+grid_frame.pack(pady=10, padx=20, fill="both", expand=True)
+
+
+#buttons style
+btn_style = {"corner_radius": 18,"height": 110,"width": 240,"font": ("Segoe UI", 20, "bold"),"fg_color": "#080707","hover_color": "#0E3C10","text_color": "#ffffff"}
+
+
+
+
+ctk.CTkButton(grid_frame, text="Attendance", command=lambda: open_attendance_calculator(main_window),**btn_style).grid(row=0, column=0, padx=20, pady=20)
+
+ctk.CTkButton(grid_frame, text= "To-Do List", command=lambda: open_todo_list(main_window),**btn_style).grid(row=0, column=1, padx=20, pady=20)
+
+ctk.CTkButton(grid_frame, text="Grade Calculator",  command=lambda: open_gpa_calculator(main_window),**btn_style).grid(row=0, column=2, padx=20, pady=20)
+
+ctk.CTkButton(grid_frame, text="Book Corner", command=lambda: open_qr_code(main_window),**btn_style).grid(row=1, column=0, padx=20, pady=20)
+
+ctk.CTkButton(grid_frame, text="DOOM Bot", command=lambda: open_llm(main_window),**btn_style).grid(row=1, column=1, padx=20, pady=20)
+
+ctk.CTkButton(grid_frame, text="Study Timer", command=lambda: open_ypt(main_window),**btn_style).grid(row=1, column=2, padx=20, pady=20)
+
+ctk.CTkButton(grid_frame, text="GPA Calculator ++", command=lambda: open_gpa_plus(main_window),**btn_style).grid(row=2, column=1, padx=20, pady=20)
 
 main_window.mainloop()

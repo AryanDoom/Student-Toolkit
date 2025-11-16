@@ -5,20 +5,21 @@ def open_attendance_calculator(root):
     window_attendance = ctk.CTkToplevel(root)
     window_attendance.title("Attendance Predictor")
     window_attendance.geometry("900x600")
+    window_attendance.configure(fg_color="#111111")
 
     # labels and the button
     ctk.CTkLabel(window_attendance, text="Current Attendance %", font=("Segoe UI", 18)).pack(pady=10)
-    current_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=15, height=40, width=200)
+    current_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=8, height=40, width=200)
     current_entry.pack(pady=10)
 
     ctk.CTkLabel(window_attendance, text="Target Attendance %", font=("Segoe UI", 18)).pack(pady=10)
-    target_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=15, height=40, width=200)
+    target_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=8, height=40, width=200)
     target_entry.pack(pady=10)
 
-    result_label = ctk.CTkLabel(window_attendance,text="",font=("Segoe UI", 16),text_color="#1e90ff",wraplength=500,justify="left")
+    result_label = ctk.CTkLabel(window_attendance,text="",font=("Segoe UI", 16),text_color="#ffffff",wraplength=500,justify="left")
     result_label.pack(pady=10)
 
-    #-----------------Backend of the calculator-----------------------
+    #-----------------Backend of the calculator--------------------------------------------
     def calculate_attendance_plan():
         try:
             current_percentage = int(current_entry.get())  # getting the info from the text boxes
@@ -46,4 +47,4 @@ def open_attendance_calculator(root):
         except ValueError:
             result_label.configure(text="Please enter valid numbers.")  # to catch all the error and out of bound values
 
-    ctk.CTkButton(window_attendance,text="Calculate",command=calculate_attendance_plan,text_color="#1e90ff",corner_radius=20,height=44,width=160).pack(pady=18)
+    ctk.CTkButton(window_attendance,text="Calculate",command=calculate_attendance_plan,text_color="#ffffff",corner_radius=20,height=44,width=160,hover_color= "#0E3C10",fg_color="#375638").pack(pady=18)

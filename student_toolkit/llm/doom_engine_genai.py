@@ -14,7 +14,7 @@ chat_history = [
 ]
 
 def what_would_doom_do(user_input):
-    # Save user's message to the thing (like everthing that button is pressed it remembers every msg)
+    # Save user's message to the thing (like everything that button is pressed it remembers every msg)
     chat_history.append({"role": "user", "content": user_input})
 
     

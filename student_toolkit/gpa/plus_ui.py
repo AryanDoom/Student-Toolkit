@@ -8,26 +8,26 @@ def open_gpa_plus(root):
     gpa_plus_window = ctk.CTkToplevel(root)
     gpa_plus_window.title("GPA Calculator ++")
     gpa_plus_window.geometry("1000x720")
-    gpa_plus_window.configure(fg_color="#232323")
+    gpa_plus_window.configure(fg_color="#000000")
 
     #Buttons
     ctk.CTkLabel(gpa_plus_window, text="GPA Calculator ++",
-                 font=("Segoe UI", 34, "bold"), text_color="#1e90ff").pack(pady=25)
+                 font=("Segoe UI", 34, "bold"), text_color="#ffffff").pack(pady=25)
 #frame for the buttons
     navigation_frame = ctk.CTkFrame(gpa_plus_window, fg_color="transparent")
     navigation_frame.pack(pady=(10, 20))
 
 #button style 
-    btn_style = {"corner_radius": 12,"width": 220,"height": 50,"font": ("Segoe UI", 16, "bold"),"fg_color": "#2a2a2a","text_color": "#1e90ff","hover_color": "#1e1e1e",}
+    btn_style = {"corner_radius": 8,"width": 220,"height": 50,"font": ("Segoe UI", 16, "bold"),'hover_color': "#0E3C10",'fg_color':"#375638","text_color": "#ffffff",}
 
 #frame for the frame
-    container =ctk.CTkFrame(gpa_plus_window, fg_color="#1e1e1e", corner_radius=12)
+    container =ctk.CTkFrame(gpa_plus_window, fg_color="#232323", corner_radius=8)
     container.pack(expand=True, padx=20, pady=20)
 
 #frames for the info
-    letter_frame = ctk.CTkFrame(container, fg_color="#232323")
-    marks_frame = ctk.CTkFrame(container, fg_color="#232323")
-    cgpa_frame = ctk.CTkFrame(container, fg_color="#232323")
+    letter_frame = ctk.CTkFrame(container, fg_color="#000000")
+    marks_frame = ctk.CTkFrame(container, fg_color="#000000")
+    cgpa_frame = ctk.CTkFrame(container, fg_color="#000000")
 
     for f in (letter_frame, marks_frame, cgpa_frame):
         f.grid(row=0, column=0, sticky="nsew") #grid setting for the info inner frames
@@ -47,7 +47,7 @@ def open_gpa_plus(root):
 
     # LETTER GRADES UI
     ctk.CTkLabel(letter_frame, text="Letter Grades → SGPA",
-                 font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(pady=(20, 10))
+                 font=("Segoe UI", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
 
     ctk.CTkLabel(letter_frame, text="Number of Subjects:", font=("Segoe UI", 18)).pack()
 
@@ -75,7 +75,7 @@ def open_gpa_plus(root):
             return
 
         for i in range(n):
-            row = ctk.CTkFrame(lg_scroll, fg_color="#1e1e1e")
+            row = ctk.CTkFrame(lg_scroll, fg_color="#111111")
             row.pack(fill="x", padx=20, pady=6)
 
             ctk.CTkLabel(row, text=f"Subject {i+1}",
@@ -104,10 +104,10 @@ def open_gpa_plus(root):
             popup = ctk.CTkToplevel(gpa_plus_window)
             popup.title("SGPA Result")
             popup.geometry("300x150")
-            popup.configure(fg_color="#232323")
+            popup.configure(fg_color="#000000")
             ctk.CTkLabel(popup, text=f"SGPA: {sgpa}",
                          font=("Segoe UI", 28, "bold"),
-                         text_color="#1e90ff").pack(expand=True)
+                         text_color="#ffffff").pack(expand=True)
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
@@ -123,7 +123,7 @@ def open_gpa_plus(root):
 
     # MARKS UI
     ctk.CTkLabel(marks_frame, text="Marks → SGPA",
-                 font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(pady=(20, 10))
+                 font=("Segoe UI", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
 
     ctk.CTkLabel(marks_frame, text="Number of Subjects:", font=("Segoe UI", 18)).pack()
     ms_entry = ctk.CTkEntry(marks_frame, width=120, height=40,
@@ -182,7 +182,7 @@ def open_gpa_plus(root):
             popup.configure(fg_color="#232323")
             ctk.CTkLabel(popup, text=f"SGPA: {sgpa}",
                          font=("Segoe UI", 28, "bold"),
-                         text_color="#1e90ff").pack(expand=True)
+                         text_color="#ffffff").pack(expand=True)
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
@@ -198,7 +198,7 @@ def open_gpa_plus(root):
 
     # CGPA UI
     ctk.CTkLabel(cgpa_frame, text="SGPAs → CGPA",
-                 font=("Segoe UI", 28, "bold"), text_color="#1e90ff").pack(pady=(20, 10))
+                 font=("Segoe UI", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
 
     ctk.CTkLabel(cgpa_frame, text="Number of Semesters:", font=("Segoe UI", 18)).pack()
     cg_entry = ctk.CTkEntry(cgpa_frame, width=120, height=40,
@@ -224,7 +224,7 @@ def open_gpa_plus(root):
             return
 
         for i in range(n):
-            row = ctk.CTkFrame(cg_scroll, fg_color="#1e1e1e")
+            row = ctk.CTkFrame(cg_scroll, fg_color="#111111")
             row.pack(fill="x", padx=20, pady=6)
 
             ctk.CTkLabel(row, text=f"Semester {i+1}",
@@ -252,7 +252,7 @@ def open_gpa_plus(root):
             popup = ctk.CTkToplevel(gpa_plus_window)
             popup.title("CGPA Result")
             popup.geometry("300x150")
-            popup.configure(fg_color="#232323")
+            popup.configure(fg_color="#000000")
             ctk.CTkLabel(popup, text=f"CGPA: {cgpa}",
                          font=("Segoe UI", 28, "bold"),
                          text_color="#1e90ff").pack(expand=True)
