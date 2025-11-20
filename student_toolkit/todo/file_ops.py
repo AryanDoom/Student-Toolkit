@@ -5,9 +5,10 @@ def save_task(task):
 
 #delete all tasks
 def clear_all_tasks():
+
     open("Todolist.txt", "w").close()
 
-#check file if tasks exisst , if yes load said tasks
+#check file if tasks exist , if yes load said tasks
 def load_tasks_from_file():
     tasks = []
     try:

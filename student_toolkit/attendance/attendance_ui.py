@@ -8,15 +8,15 @@ def open_attendance_calculator(root):
     window_attendance.configure(fg_color="#111111")
 
     # labels and the button
-    ctk.CTkLabel(window_attendance, text="Current Attendance %", font=("Segoe UI", 18)).pack(pady=10)
-    current_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=8, height=40, width=200)
+    ctk.CTkLabel(window_attendance, text="Current Attendance %", font=("Agency FB", 18)).pack(pady=10)
+    current_entry = ctk.CTkEntry(window_attendance, font=("Agency FB", 18), corner_radius=8, height=40, width=200)
     current_entry.pack(pady=10)
 
-    ctk.CTkLabel(window_attendance, text="Target Attendance %", font=("Segoe UI", 18)).pack(pady=10)
-    target_entry = ctk.CTkEntry(window_attendance, font=("Segoe UI", 18), corner_radius=8, height=40, width=200)
+    ctk.CTkLabel(window_attendance, text="Target Attendance %", font=("Agency FB", 18)).pack(pady=10)
+    target_entry = ctk.CTkEntry(window_attendance, font=("Agency FB", 18), corner_radius=8, height=40, width=200)
     target_entry.pack(pady=10)
 
-    result_label = ctk.CTkLabel(window_attendance,text="",font=("Segoe UI", 16),text_color="#ffffff",wraplength=500,justify="left")
+    result_label = ctk.CTkLabel(window_attendance,text="",font=("Agency FB", 16),text_color="#ffffff",wraplength=500,justify="left")
     result_label.pack(pady=10)
 
     #-----------------Backend of the calculator--------------------------------------------

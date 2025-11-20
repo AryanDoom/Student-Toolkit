@@ -9,33 +9,33 @@ def open_gpa_calculator(root):
 
     # UI and the textbox and labels for the marks and things
     def label(text):
-        ctk.CTkLabel(gpa_window, text=text, font=("Segoe UI", 15), text_color="#ffffff").pack(pady=4)
+        ctk.CTkLabel(gpa_window, text=text, font=("Agency FB", 15), text_color="#ffffff").pack(pady=4)
 
     label("Subject Name")
-    subject_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
+    subject_entry = ctk.CTkEntry(gpa_window, font=("Agency FB", 15), corner_radius=12, height=33, width=190)
     subject_entry.pack(pady=4)
 
     label("ISA 1 Score (out of 40)")
-    isa1_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
+    isa1_entry = ctk.CTkEntry(gpa_window, font=("Agency FB", 15), corner_radius=12, height=33, width=190)
     isa1_entry.pack(pady=4)
 
     label("ISA 2 Score (out of 40)")
-    isa2_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
+    isa2_entry = ctk.CTkEntry(gpa_window, font=("Agency FB", 15), corner_radius=12, height=33, width=190)
     isa2_entry.pack(pady=4)
 
     label("Assignment Score (out of 10)")
-    assignment_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
+    assignment_entry = ctk.CTkEntry(gpa_window, font=("Agency FB", 15), corner_radius=12, height=33, width=190)
     assignment_entry.pack(pady=4)
 
     label("ESA Score (out of 100)")
-    esa_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
+    esa_entry = ctk.CTkEntry(gpa_window, font=("Agency FB", 15), corner_radius=12, height=33, width=190)
     esa_entry.pack(pady=4)
 
     label("Lab Score (only for Chemistry/Python/Physics)(Out of 20)")
-    lab_entry = ctk.CTkEntry(gpa_window, font=("Segoe UI", 15), corner_radius=12, height=33, width=190)
+    lab_entry = ctk.CTkEntry(gpa_window, font=("Agency FB", 15), corner_radius=12, height=33, width=190)
     lab_entry.pack(pady=4)
 
-    result_label = ctk.CTkLabel(gpa_window,text="",font=("Segoe UI", 15),wraplength=320,justify="left",text_color="#f4f4f4")
+    result_label = ctk.CTkLabel(gpa_window,text="",font=("Agency FB", 15),wraplength=320,justify="left",text_color="#f4f4f4")
     result_label.pack(pady=10)
 
    

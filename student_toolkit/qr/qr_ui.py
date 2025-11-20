@@ -13,14 +13,14 @@ def open_qr_code(root):
     qr_window.configure(fg_color="#111111")
 
     # ---------- HEADER ----------
-    title = ctk.CTkLabel(qr_window,text=" Textbook QR Generator",font=("Segoe UI", 24, "bold"),text_color="#f9f9f9")
+    title = ctk.CTkLabel(qr_window,text=" Textbook QR Generator",font=("Agency FB", 24, "bold"),text_color="#f9f9f9")
     title.pack(pady=(20, 10))
 
     # ---------- Subject selecting frame----------
     select_frame = ctk.CTkFrame(qr_window, fg_color="#232323", corner_radius=15)
     select_frame.pack(pady=10, padx=20, fill="x")
 
-    ctk.CTkLabel(select_frame,text="Select the subject:",font=("Segoe UI", 16, "bold"),text_color="#e0e0e0").pack(pady=(10, 5))
+    ctk.CTkLabel(select_frame,text="Select the subject:",font=("Agency FB", 16, "bold"),text_color="#e0e0e0").pack(pady=(10, 5))
 
     subject_var = StringVar(value="")
 
@@ -49,7 +49,7 @@ def open_qr_code(root):
             text=label_text,
             variable=subject_var,
             value=value,
-            font=("Segoe UI", 14),
+            font=("Agency FB", 14),
             text_color="#c9c9c9",
         ).pack(anchor="center", pady=4, padx=10)
 
@@ -62,7 +62,7 @@ def open_qr_code(root):
     qr_label.pack(pady=15)   
 
     # ---------- the link -------------------
-    link_label = ctk.CTkLabel( qr_window, text="", font=("Segoe UI", 14), text_color="#ffffff", cursor="hand2")
+    link_label = ctk.CTkLabel( qr_window, text="", font=("Agency FB", 14), text_color="#ffffff", cursor="hand2")
     link_label.pack(pady=5)
 
     def open_link(event):
@@ -75,7 +75,7 @@ def open_qr_code(root):
         subject = subject_var.get()
 
         if subject == "":
-            qr_label.configure(text="Please select a subject.",font=("Segoe UI", 16),text_color="#ffffff")
+            qr_label.configure(text="Please select a subject.",font=("Agency FB", 16),text_color="#ffffff")
             link_label.configure(text="")
             return
 
@@ -92,5 +92,5 @@ def open_qr_code(root):
     btn_frame = ctk.CTkFrame(qr_window, fg_color="#1a1a1a")
     btn_frame.pack(pady=(5, 20))
 
-    ctk.CTkButton(btn_frame,text="Generate QR Code",command=generate_qr,corner_radius=8,height=40,hover_color= "#0E3C10",fg_color="#375638",text_color="#FFFFFF",font=("Segoe UI", 16)).pack(padx=2)
+    ctk.CTkButton(btn_frame,text="Generate QR Code",command=generate_qr,corner_radius=8,height=40,hover_color= "#0E3C10",fg_color="#375638",text_color="#FFFFFF",font=("Agency FB", 16)).pack(padx=2)
 

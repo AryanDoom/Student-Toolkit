@@ -11,13 +11,13 @@ def open_ypt(root):
     ypt_window.geometry("650x520")
     ypt_window.configure(fg_color="#111111")
 
-    ctk.CTkLabel(ypt_window, text="Study Timer", font=("Segoe UI", 24, "bold"),
+    ctk.CTkLabel(ypt_window, text="Study Timer", font=("Agency FB", 24, "bold"),
                  text_color="#ffffff").pack(pady=20)  # Button and colours if one wishes to change
 
     subjects = {}
     current_subject = tk.StringVar(value="Select Subject")
 
-    subject_entry = ctk.CTkEntry(ypt_window,placeholder_text="Enter Subject",corner_radius=8,height=40,width=240,font=("Segoe UI", 16))
+    subject_entry = ctk.CTkEntry(ypt_window,placeholder_text="Enter Subject",corner_radius=8,height=40,width=240,font=("Agency FB", 16))
     subject_entry.pack(pady=10)
 
     # fucntions for said buttons
@@ -36,7 +36,7 @@ def open_ypt(root):
     )
     subject_menu.pack(pady=10)  # option menu is like a drop down u can see it while selecting that thing
 
-    time_label = ctk.CTkLabel(ypt_window,text="00:00:00",font=("Segoe UI", 28, "bold"),text_color="white")
+    time_label = ctk.CTkLabel(ypt_window,text="00:00:00",font=("Agency FB", 28, "bold"),text_color="white")
     time_label.pack(pady=15)
 
     # Pre defining the variables used for the timer
@@ -82,7 +82,7 @@ def open_ypt(root):
 
     ctk.CTkButton(btn_frame,text="Reset",command=reset_timer,text_color="#ffffff",corner_radius=8,width=90,hover_color= "#0E3C10",fg_color="#375638").pack(side="left", padx=10)
 
-    ctk.CTkLabel(ypt_window,text="Study Time per Subject",font=("Segoe UI", 16),text_color="#ffffff").pack(pady=10)
+    ctk.CTkLabel(ypt_window,text="Study Time per Subject",font=("Agency FB", 16),text_color="#ffffff").pack(pady=10)
 
     stats_box = tk.Text(ypt_window,height=8,width=40,font=("Consolas", 13),bg="#1e1e1e",fg="white")
     stats_box.pack(pady=5)
