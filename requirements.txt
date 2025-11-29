@@ -3,3 +3,4 @@ qrcode
 Pillow
 google-generativeai
 ollama
+pandas

@@ -5,7 +5,7 @@ from todo.file_ops import (save_task,clear_all_tasks,load_tasks_from_file,save_t
 def open_todo_list(root):
     todo_window = ctk.CTkToplevel(root)
     todo_window.title("Your To-Do List")
-    todo_window.geometry("500x400")
+    todo_window.geometry("500x700")
     todo_window.configure(fg_color="#111111")
 
     #add tasks

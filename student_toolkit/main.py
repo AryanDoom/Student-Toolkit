@@ -63,7 +63,6 @@ btn_style = {"corner_radius": 18,"height": 110,"width": 240,"font": ("Agency FB"
 
 
 
-
 ctk.CTkButton(grid_frame, text="Attendance", command=lambda: open_attendance_calculator(main_window),**btn_style).grid(row=0, column=0, padx=20, pady=20)
 
 ctk.CTkButton(grid_frame, text= "To-Do List", command=lambda: open_todo_list(main_window),**btn_style).grid(row=0, column=1, padx=20, pady=20)
