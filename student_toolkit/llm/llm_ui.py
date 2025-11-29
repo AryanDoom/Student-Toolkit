@@ -1,6 +1,6 @@
 import customtkinter as ctk
 import tkinter as tk
-from llm.doom_engine import ask_llm
+from llm.doom_engine_genai import what_would_doom_do
 
 #Main window 
 def open_llm(root):
@@ -43,7 +43,7 @@ def open_llm(root):
             return
 
         try:
-            reply = ask_llm(user_doubt)
+            reply = what_would_doom_do(user_doubt)
 
             import datetime
             time_now = datetime.datetime.now().strftime("[%H:%M]")

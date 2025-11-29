@@ -11,8 +11,7 @@ def open_ypt(root):
     ypt_window.geometry("650x520")
     ypt_window.configure(fg_color="#111111")
 
-    ctk.CTkLabel(ypt_window, text="Study Timer", font=("Agency FB", 24, "bold"),
-                 text_color="#ffffff").pack(pady=20)  # Button and colours if one wishes to change
+    ctk.CTkLabel(ypt_window, text="Study Timer", font=("Agency FB", 24, "bold"),text_color="#ffffff").pack(pady=20)  # Button and colours if one wishes to change
 
     subjects = {}
     current_subject = tk.StringVar(value="Select Subject")
