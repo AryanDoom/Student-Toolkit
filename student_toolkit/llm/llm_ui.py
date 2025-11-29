@@ -30,7 +30,7 @@ def open_llm(root):
     ask_btn = ctk.CTkButton(input_frame,text="Ask",command=lambda: get_answer(),hover_color= "#0E3C10",fg_color="#375638",text_color="White",corner_radius=10,width=120,height=40)
     ask_btn.pack(side="right")
 
-    # -----  -----
+    # 
     def get_answer():
         user_doubt = llm_entry.get().strip()
 

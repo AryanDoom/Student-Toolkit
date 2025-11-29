@@ -68,8 +68,8 @@ def open_wordle(root):
 
         # pressing the key on virtual keyboard
         def press_key(ch):
-            global current_col
-            global current_row
+            nonlocal current_col
+            nonlocal current_row
             if current_row >= ROWS:
                 return
             if current_col < COLS:
@@ -79,8 +79,8 @@ def open_wordle(root):
 
         #config the delete button
         def delete_letter():
-            global current_col
-            global current_row
+            nonlocal current_col
+            nonlocal current_row
             if current_row >= ROWS:
                 return
             if current_col > 0:
@@ -90,8 +90,8 @@ def open_wordle(root):
 
         #check if the guess is correct or even if it has any  of the correct letters
         def check_guess(guess):
-            global current_row
-            global current_col
+            nonlocal current_row
+            nonlocal current_col
             solution = list(SOLUTION)
             guess_list = list(guess)
 
@@ -142,8 +142,8 @@ def open_wordle(root):
                 show_popup(f"You lose! Word = {SOLUTION}")
 
         def submit_word():
-            global current_row
-            global current_col
+            nonlocal current_row
+            nonlocal current_col
 
             if current_col < COLS:
                 msg_label.configure(text="Not enough letters!")

@@ -1,6 +1,6 @@
 customtkinter
 qrcode
 Pillow
-google-generativeai
+google-genai
 ollama
 pandas
