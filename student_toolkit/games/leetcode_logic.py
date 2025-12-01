@@ -15,7 +15,7 @@ def open_leetcode(root):
     #main window 
     q_window = ctk.CTk()
     q_window.title("DSA related problems")
-    q_window.geometry("1100x700")
+    q_window.geometry("1100x750")
     q_window.configure(fg_colour="#000000")
 
     #main frame
@@ -81,16 +81,46 @@ def open_leetcode(root):
             current_index -= 1
             show_question()
 
+    def goto_q_no():
+        nonlocal current_index
+        q_no = q_no_entry.get().strip()  #get value
+        error_label.configure(text="")
+
+        if not q_no.isdigit():
+            error_label.configure(text="Please Enter a Valid number")
+            return
+        
+        q_no_int = int(q_no)
+
+        if 1 <= q_no_int <= 1875:
+            current_index = q_no_int - 1  
+            show_question()
+        else:
+            error_label.configure(text="Out of range (Questions from 1 to 1875 exist)")
+            return
+
 
     #the buttons
     btn_frame = ctk.CTkFrame(main, fg_color="#000000")
     btn_frame.pack(pady=10)
 
-    prev_btn = ctk.CTkButton(btn_frame, text=" Previous", width=140, command=prev_question,corner_radius=5)
+    prev_btn = ctk.CTkButton(btn_frame, text=" Previous", width=140, command=prev_question,corner_radius=5,font= ("Agency FB", 20, "bold"),fg_color= "#0E3C10",hover_color= "#327135",text_color= "#ffffff")
     prev_btn.grid(row=0, column=0, padx=20)
 
-    next_btn = ctk.CTkButton(btn_frame, text="Next ", width=140, command=next_question,corner_radius=5)
-    next_btn.grid(row=0, column=1, padx=20)
+    next_btn = ctk.CTkButton(btn_frame, text="Next ", width=140, command=next_question,corner_radius=5,font= ("Agency FB", 20, "bold"),fg_color= "#0E3C10",hover_color= "#327135",text_color= "#ffffff")
+    next_btn.grid(row=0, column=2, padx=20)
+
+    question_number_btn=ctk.CTkButton(btn_frame,text="Go to",width=140,command=goto_q_no,corner_radius=5,font= ("Agency FB", 20, "bold"),fg_color= "#0E3C10",hover_color= "#327135",text_color= "#ffffff")
+    question_number_btn.grid(row=1, column=0, padx=20,pady=10)
+
+    q_no_entry = ctk.CTkEntry(btn_frame, font=("Agency FB", 18), corner_radius=5, height=40, width=60)
+    q_no_entry.grid(row=1, column=2, padx=20,pady=10)
+
+    error_label = ctk.CTkLabel(btn_frame, text="", font=("Agency FB", 18), text_color="red")
+    error_label.grid(row=2,column=1,pady=5,padx=10)
+
+
+    
 
     # Load first question
     show_question()

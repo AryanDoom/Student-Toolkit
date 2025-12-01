@@ -2,17 +2,24 @@ import customtkinter as ctk
 import tkinter as tk
 import random
 import csv
+import os
 
 
 def open_wordle(root):
         #data as to only allow valid words
-        with open(r"C:\Users\aryan\OneDrive\Documents\Code\Student-Toolkit\student_toolkit\games\valid_solutions.csv", "r") as f:
+        base = os.path.dirname(__file__)  
+
+        solutions_path = os.path.join(base, "valid_solutions.csv")
+        guesses_path = os.path.join(base, "valid_guesses.csv")
+
+        with open(solutions_path, "r") as f:
             words = [row1[0].upper() for row1 in csv.reader(f)]
 
-        with open(r"C:\Users\aryan\OneDrive\Documents\Code\Student-Toolkit\student_toolkit\games\valid_guesses.csv", "r") as h:
-            words_sol = [row2[0].upper() for row2 in csv.reader(h)]    
+        with open(guesses_path, "r") as h:
+            words_sol = [row2[0].upper() for row2 in csv.reader(h)]   
 
         SOLUTION = random.choice(words)
+        print(SOLUTION)
         VALID_WORDS = set(words_sol)|set(words)
 
         ROWS = 6  #predefined number of coloumns and rows
