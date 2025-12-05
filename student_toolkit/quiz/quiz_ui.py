@@ -10,6 +10,11 @@ def open_quiz(root):
     quiz_window.geometry("600x650")
     quiz_window.configure(fg_color="#000000")
 
+    quiz_window.lift()
+    quiz_window.focus_force()
+    quiz_window.grab_set()
+
+
 # main frame
     top_frame = ctk.CTkFrame(quiz_window, fg_color="#000000", corner_radius=0, height=200)
     top_frame.pack(fill="x")

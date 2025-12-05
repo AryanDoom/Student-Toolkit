@@ -12,6 +12,11 @@ def open_qr_code(root):
     qr_window.geometry("520x700")
     qr_window.configure(fg_color="#111111")
 
+    qr_window.lift()
+    qr_window.focus_force()
+    qr_window.grab_set()
+
+
     # ---------- HEADER ----------
     title = ctk.CTkLabel(qr_window,text=" Textbook QR Generator",font=("Agency FB", 24, "bold"),text_color="#f9f9f9")
     title.pack(pady=(20, 10))

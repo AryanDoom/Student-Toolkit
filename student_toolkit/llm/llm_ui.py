@@ -7,7 +7,12 @@ def open_llm(root):
     llm_window = ctk.CTkToplevel(root)
     llm_window.title("DOOM Bot - Doubt Solver")
     llm_window.geometry("900x700")
-    llm_window.configure(fg_color="#000000")   
+    llm_window.configure(fg_color="#000000")  
+
+    llm_window.lift()
+    llm_window.focus_force()
+    llm_window.grab_set()
+
 
     # ----- HEADER -----
     header = ctk.CTkLabel(llm_window,text=" DOOM Bot - Ask Your Doubts",font=("Agency FB", 28, "bold"),text_color="#ffffff")

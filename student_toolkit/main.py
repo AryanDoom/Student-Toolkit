@@ -54,7 +54,10 @@ header.pack(pady=20)
 
 
 # floating grid container
-grid_frame = ctk.CTkFrame(content,fg_color="#1f1f1f",corner_radius=18)
+wrapper = ctk.CTkFrame(content, fg_color="#141414")
+wrapper.pack(expand=True)
+
+grid_frame = ctk.CTkFrame(wrapper,fg_color="#1f1f1f",corner_radius=18)
 grid_frame.pack(pady=10, padx=20, fill="both", expand=True)
 
 

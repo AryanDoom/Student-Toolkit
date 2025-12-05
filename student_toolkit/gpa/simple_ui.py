@@ -7,6 +7,11 @@ def open_gpa_calculator(root):
     gpa_window.geometry("520x550")
     gpa_window.configure(fg_colour="#000000")
 
+    gpa_window.lift()
+    gpa_window.focus_force()
+    gpa_window.grab_set()
+
+
     # UI and the textbox and labels for the marks and things
     def label(text):
         ctk.CTkLabel(gpa_window, text=text, font=("Agency FB", 15), text_color="#ffffff").pack(pady=4)

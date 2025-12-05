@@ -9,6 +9,11 @@ def open_game(root):
     game_window.geometry("600x400")
     game_window.configure(fg_color="#111111")
 
+    game_window.lift()
+    game_window.focus_force()
+    game_window.grab_set()
+
+
     ctk.CTkLabel(game_window, text="Brain Teasers", font=("Agency FB", 30, "bold"),text_color="#ffffff").pack(pady=20)
 
     game_frame = ctk.CTkFrame(game_window,fg_color="#1f1f1f",corner_radius=18)

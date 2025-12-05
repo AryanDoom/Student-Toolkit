@@ -7,6 +7,11 @@ def open_attendance_calculator(root):
     window_attendance.geometry("900x600")
     window_attendance.configure(fg_color="#111111")
 
+    window_attendance.lift()
+    window_attendance.focus_force()
+    window_attendance.grab_set()
+
+
     # labels and the button
     ctk.CTkLabel(window_attendance, text="Current Attendance %", font=("Agency FB", 18)).pack(pady=10)
     current_entry = ctk.CTkEntry(window_attendance, font=("Agency FB", 18), corner_radius=8, height=40, width=200)

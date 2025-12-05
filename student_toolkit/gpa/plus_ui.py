@@ -10,9 +10,13 @@ def open_gpa_plus(root):
     gpa_plus_window.geometry("1000x720")
     gpa_plus_window.configure(fg_color="#000000")
 
+    gpa_plus_window.lift()
+    gpa_plus_window.focus_force()
+    gpa_plus_window.grab_set()
+
+
     #Buttons
-    ctk.CTkLabel(gpa_plus_window, text="GPA Calculator ++",
-                 font=("Agency FB", 34, "bold"), text_color="#ffffff").pack(pady=25)
+    ctk.CTkLabel(gpa_plus_window, text="GPA Calculator ++",font=("Agency FB", 34, "bold"), text_color="#ffffff").pack(pady=25)
 #frame for the buttons
     navigation_frame = ctk.CTkFrame(gpa_plus_window, fg_color="transparent")
     navigation_frame.pack(pady=(10, 20))
@@ -46,19 +50,16 @@ def open_gpa_plus(root):
                   command=lambda: show_frame(cgpa_frame), **btn_style).pack(side="left", padx=10)
 
     # LETTER GRADES UI
-    ctk.CTkLabel(letter_frame, text="Letter Grades → SGPA",
-                 font=("Agency FB", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
+    ctk.CTkLabel(letter_frame, text="Letter Grades → SGPA",font=("Agency FB", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
 
     ctk.CTkLabel(letter_frame, text="Number of Subjects:", font=("Agency FB", 18)).pack()
 
     #letter grade and credits textbox
-    lg_entry = ctk.CTkEntry(letter_frame, width=120, height=40,
-                            font=("Agency FB", 16), justify="center")
+    lg_entry = ctk.CTkEntry(letter_frame, width=120, height=40,font=("Agency FB", 16), justify="center")
     lg_entry.pack(pady=8)
 
     lg_entries = []
-    lg_scroll = ctk.CTkScrollableFrame(letter_frame, width=880, height=260,
-                                       label_text="Enter Grades and Credits")
+    lg_scroll = ctk.CTkScrollableFrame(letter_frame, width=880, height=260,label_text="Enter Grades and Credits")
     lg_scroll.pack(pady=10)
 
     #Creating the fields and checking if there are pre existing entries available in the window
@@ -78,15 +79,13 @@ def open_gpa_plus(root):
             row = ctk.CTkFrame(lg_scroll, fg_color="#111111")
             row.pack(fill="x", padx=20, pady=6)
 
-            ctk.CTkLabel(row, text=f"Subject {i+1}",
-                         font=("Agency FB", 15, "bold"), width=120).pack(side="left", padx=10)
+            ctk.CTkLabel(row, text=f"Subject {i+1}",font=("Agency FB", 15, "bold"), width=120).pack(side="left", padx=10)
 
             grade_box = ctk.CTkComboBox(row, values=list(grade_points.keys()), width=100)
             grade_box.set("S")
             grade_box.pack(side="left", padx=10)
 
-            credit_box = ctk.CTkEntry(row, width=100,
-                                      placeholder_text="Credits", justify="center")
+            credit_box = ctk.CTkEntry(row, width=100,placeholder_text="Credits", justify="center")
             credit_box.pack(side="left", padx=10)
 
             lg_entries.append((grade_box, credit_box))
@@ -105,9 +104,7 @@ def open_gpa_plus(root):
             popup.title("SGPA Result")
             popup.geometry("300x150")
             popup.configure(fg_color="#000000")
-            ctk.CTkLabel(popup, text=f"SGPA: {sgpa}",
-                         font=("Agency FB", 28, "bold"),
-                         text_color="#ffffff").pack(expand=True)
+            ctk.CTkLabel(popup, text=f"SGPA: {sgpa}",font=("Agency FB", 28, "bold"),text_color="#ffffff").pack(expand=True)
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
@@ -122,8 +119,7 @@ def open_gpa_plus(root):
                   command=calculate_lg_sgpa, **btn_style).pack(side="left", padx=15)
 
     # MARKS UI
-    ctk.CTkLabel(marks_frame, text="Marks → SGPA",
-                 font=("Agency FB", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
+    ctk.CTkLabel(marks_frame, text="Marks → SGPA",font=("Agency FB", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
 
     ctk.CTkLabel(marks_frame, text="Number of Subjects:", font=("Agency FB", 18)).pack()
     ms_entry = ctk.CTkEntry(marks_frame, width=120, height=40,
@@ -153,8 +149,7 @@ def open_gpa_plus(root):
             row = ctk.CTkFrame(ms_scroll, fg_color="#1e1e1e")
             row.pack(fill="x", padx=20, pady=6)
 
-            ctk.CTkLabel(row, text=f"Subject {i+1}",
-                         font=("Agency FB", 15, "bold"), width=120).pack(side="left", padx=10)
+            ctk.CTkLabel(row, text=f"Subject {i+1}",font=("Agency FB", 15, "bold"), width=120).pack(side="left", padx=10)
 
             boxes = []
             for h in headers:
@@ -180,9 +175,7 @@ def open_gpa_plus(root):
             popup.title("SGPA Result")
             popup.geometry("300x150")
             popup.configure(fg_color="#232323")
-            ctk.CTkLabel(popup, text=f"SGPA: {sgpa}",
-                         font=("Agency FB", 28, "bold"),
-                         text_color="#ffffff").pack(expand=True)
+            ctk.CTkLabel(popup, text=f"SGPA: {sgpa}",font=("Agency FB", 28, "bold"),text_color="#ffffff").pack(expand=True)
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
@@ -197,8 +190,7 @@ def open_gpa_plus(root):
                   command=calculate_ms_sgpa, **btn_style).pack(side="left", padx=15)
 
     # CGPA UI
-    ctk.CTkLabel(cgpa_frame, text="SGPAs → CGPA",
-                 font=("Agency FB", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
+    ctk.CTkLabel(cgpa_frame, text="SGPAs → CGPA",font=("Agency FB", 28, "bold"), text_color="#ffffff").pack(pady=(20, 10))
 
     ctk.CTkLabel(cgpa_frame, text="Number of Semesters:", font=("Agency FB", 18)).pack()
     cg_entry = ctk.CTkEntry(cgpa_frame, width=120, height=40,
@@ -206,8 +198,7 @@ def open_gpa_plus(root):
     cg_entry.pack(pady=8)
 
     cg_entries = []
-    cg_scroll = ctk.CTkScrollableFrame(cgpa_frame, width=880, height=260,
-                                       label_text="Enter SGPA for Each Semester")
+    cg_scroll = ctk.CTkScrollableFrame(cgpa_frame, width=880, height=260,label_text="Enter SGPA for Each Semester")
     cg_scroll.pack(pady=10)
 
     #actual code for the sgpa to cgpa
@@ -227,11 +218,9 @@ def open_gpa_plus(root):
             row = ctk.CTkFrame(cg_scroll, fg_color="#111111")
             row.pack(fill="x", padx=20, pady=6)
 
-            ctk.CTkLabel(row, text=f"Semester {i+1}",
-                         font=("Agency FB", 15, "bold"), width=160).pack(side="left", padx=10)
+            ctk.CTkLabel(row, text=f"Semester {i+1}",font=("Agency FB", 15, "bold"), width=160).pack(side="left", padx=10)
 
-            e = ctk.CTkEntry(row, width=200, height=36,
-                             justify="center", placeholder_text="Enter SGPA")
+            e = ctk.CTkEntry(row, width=200, height=36,justify="center", placeholder_text="Enter SGPA")
             e.pack(side="left", padx=10)
             cg_entries.append(e)
 
@@ -253,9 +242,7 @@ def open_gpa_plus(root):
             popup.title("CGPA Result")
             popup.geometry("300x150")
             popup.configure(fg_color="#000000")
-            ctk.CTkLabel(popup, text=f"CGPA: {cgpa}",
-                         font=("Agency FB", 28, "bold"),
-                         text_color="#1e90ff").pack(expand=True)
+            ctk.CTkLabel(popup, text=f"CGPA: {cgpa}",font=("Agency FB", 28, "bold"),text_color="#1e90ff").pack(expand=True)
 
         except Exception as e:
             messagebox.showerror("Error", str(e))

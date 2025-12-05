@@ -8,6 +8,11 @@ def open_todo_list(root):
     todo_window.geometry("500x700")
     todo_window.configure(fg_color="#111111")
 
+    todo_window.lift()
+    todo_window.focus_force()
+    todo_window.grab_set()
+
+
     #add tasks
     def add_task():
         task = task_entry.get().strip()
