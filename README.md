@@ -140,12 +140,17 @@ Getting Started
 Follow the steps below to clone and run Student Toolkit on your local machine.
 
 Clone the Repository
+
+```bash
 git clone https://github.com/<your-username>/student-toolkit.git
 cd student-toolkit
+```
 
 Create a Virtual Environment (Recommended)
-python -m venv venv
 
+```bash
+python -m venv venv
+```
 
 Activate the virtual environment:
 
@@ -162,7 +167,9 @@ Install Dependencies
 
 Install all required Python libraries using the provided requirements.txt file:
 
+```bash
 pip install -r requirements.txt
+```
 
 Ollama Setup (Required for LLM & Quiz)
 
@@ -173,13 +180,16 @@ https://ollama.com
 
 Pull the required model (example: DeepSeek):
 
+```bash
 ollama pull deepseek-r1
-
+```
 
 Ensure Ollama is running in the background before launching the application.
 
 Run the Application
-python main.py
 
+```bash
+python main.py
+```
 
 The Student Toolkit window will launch, and all features can be accessed from the main dashboard.
