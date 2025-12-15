@@ -13,20 +13,6 @@ def open_hangman(root):
 
     base = os.path.dirname(__file__)  
 
-    doom_img=None
-
-    def draw_doom_mask():
-        global doom_img
-
-        img = Image.open(os.path.join(base,"doom_mask4.png")).convert("RGBA")
-
-        img = img.resize((36, 55), Image.LANCZOS)
-
-        doom_img = ImageTk.PhotoImage(img)
-
-        canvas.create_image(100, 62, image=doom_img)
-
-
     solutions_path = os.path.join(base, "words_250000_train.csv")
 
     with open(solutions_path, "r") as f:
@@ -61,6 +47,8 @@ def open_hangman(root):
         draw_gallows()
         draw_stickman(attempts)
 
+
+
     def is_won(display):
         return "_" not in display
 
@@ -70,28 +58,25 @@ def open_hangman(root):
         canvas.create_line(40, 20, 100, 20, width=2)     # top bar
         canvas.create_line(100, 20, 100, 35, width=2)    # rope
 
-
     def draw_stickman(attempts):
 
         if attempts <= 5:
-            #canvas.create_oval(80, 35, 120, 75, width=2, fill="#0F5F0C")
-            draw_doom_mask()
+            canvas.create_image(100, 62, image=canvas.doom_img)
 
-        
         if attempts <= 4:
-            canvas.create_line(100, 75, 100, 135, width=2, fill="#0F5F0C")
+            canvas.create_line(100, 75, 100, 135, width=4, fill="#0F5F0C")
 
         if attempts <= 3:
-            canvas.create_line(100, 95, 70, 115, width=2, fill="#0F5F0C")
+            canvas.create_line(100, 95, 70, 115, width=4, fill="#0F5F0C")
 
         if attempts <= 2:
-            canvas.create_line(100, 95, 130, 115, width=2, fill="#0F5F0C")
+            canvas.create_line(100, 95, 130, 115, width=4, fill="#0F5F0C")
 
         if attempts <= 1:
-            canvas.create_line(100, 135, 75, 175, width=2, fill="#0F5F0C")
+            canvas.create_line(100, 135, 75, 175, width=4, fill="#0F5F0C")
 
         if attempts <= 0:
-            canvas.create_line(100, 135, 125, 175, width=2, fill="#0F5F0C")
+            canvas.create_line(100, 135, 125, 175, width=4, fill="#0F5F0C")
 
 
 
@@ -102,7 +87,7 @@ def open_hangman(root):
         guessed_label.configure(text="Guessed: " + " ".join(sorted(guessed_letters)))
 
     def handle_key(event):
-        global attempts
+        nonlocal attempts
 
         guess = event.char.lower()
         if not guess.isalpha() or len(guess) != 1:
@@ -112,12 +97,14 @@ def open_hangman(root):
 
         if not correct:
             attempts -= 1
-            draw_stickman(attempts)
+            redraw()
+        else:
+            redraw()
 
         update_display()
 
         if is_won(display):
-            messagebox.showinfo("Hangman","You won!")
+            messagebox.showinfo("Hangman", "You won!")
             hangman_window.destroy()
 
         if attempts == 0:
@@ -125,7 +112,7 @@ def open_hangman(root):
             hangman_window.destroy()
 
 
-    # ---------- INIT ----------
+
     word, display, guessed_letters, attempts = initialize_game()
     hangman_window = ctk.CTk()
     hangman_window.title("Hangman with Gallows")
@@ -154,6 +141,8 @@ def open_hangman(root):
     canvas = tk.Canvas(content,width=160,height=220,bg="#353434",highlightthickness=0)
     canvas.pack(anchor="center", padx=20)
 
+    canvas.doom_img = ImageTk.PhotoImage(Image.open(os.path.join(base, "doom_mask4.png")).convert("RGBA").resize((36, 55), Image.LANCZOS),master=hangman_window   )
+
     draw_gallows()
     redraw()
 
@@ -161,4 +150,3 @@ def open_hangman(root):
     hangman_window.bind("<Key>", handle_key)
     hangman_window.focus_set()
     hangman_window.mainloop()
-open_hangman
