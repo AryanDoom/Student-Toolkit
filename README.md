@@ -56,6 +56,8 @@ Brain Teaser
 A small collection of practice tools that currently includes Wordle and DSA question practice. This section can grow with more games or challenges over time.
 <img width="642" height="873" alt="Screenshot 2025-12-13 110342" src="https://github.com/user-attachments/assets/1f83d179-b1ae-4518-9e5d-e0860311be2c" />
 <img width="1378" height="998" alt="Screenshot 2025-12-13 110356" src="https://github.com/user-attachments/assets/0c5fe0c5-799d-48ba-bd7e-c053c05a84de" />
+<img width="671" height="506" alt="image" src="https://github.com/user-attachments/assets/24866e4e-7978-4c11-abaf-79d3634179a3" />
+
 
 
 Requirements
