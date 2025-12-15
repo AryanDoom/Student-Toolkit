@@ -46,8 +46,9 @@ def open_wordle(root):
 
         #building the grid for the letters 
         def build_grid():
-            frame = ctk.CTkFrame(wordle_window, fg_color="#000000")
+            frame = ctk.CTkFrame(wordle_window, fg_color="#323030")
             frame.grid(row=0, column=0, pady=10)
+            
 
             for r in range(ROWS):
                 row_cells = []
@@ -56,6 +57,7 @@ def open_wordle(root):
                     lbl.grid(row=r, column=c, padx=5, pady=5)
                     row_cells.append(lbl)
                 grid.append(row_cells)
+                
 
 
 
@@ -181,11 +183,7 @@ def open_wordle(root):
                 f = ctk.CTkFrame(keyboard_frame, fg_color="transparent")
                 f.pack(pady=4)
                 for ch in row:
-                    btn = ctk.CTkButton(
-                        f, text=ch,
-                        width=45, height=45,
-                        command=lambda x=ch: press_key(x)
-                    )
+                    btn = ctk.CTkButton(f, text=ch,width=45, height=45,command=lambda x=ch: press_key(x),hover_color= "#0E3C10",fg_color="#375638",corner_radius=5)
                     btn.pack(side="left", padx=3)
                     keyboard_buttons[ch] = btn
 

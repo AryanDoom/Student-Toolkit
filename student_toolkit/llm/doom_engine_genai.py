@@ -22,7 +22,6 @@ def what_would_doom_do(user_input):
     for msg in chat_history:
         convo =convo+ f"{msg['role'].upper()}: {msg['content']}\n"  #dont ask me what this does(ik what it does idk how to explain)
 
-   
     response = client.models.generate_content(model="gemini-2.5-flash",contents=convo)
 
     reply = response.text

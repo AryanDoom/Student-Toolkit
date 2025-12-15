@@ -1,12 +1,13 @@
 import customtkinter as ctk
 from games.wordle_logic import open_wordle
 from games.leetcode_logic import open_leetcode
+from games.hangman_logic import open_hangman
 
 
 def open_game(root):
     game_window = ctk.CTkToplevel(root)
     game_window.title("Brain Teasers")
-    game_window.geometry("600x400")
+    game_window.geometry("880x250")
     game_window.configure(fg_color="#111111")
 
     game_window.lift()
@@ -24,5 +25,7 @@ def open_game(root):
     ctk.CTkButton(game_frame, text="Wordle", command=lambda: open_wordle(game_window),**btn_style).grid(row=0, column=0, padx=20, pady=20)
 
     ctk.CTkButton(game_frame, text="DSA Questions", command=lambda:open_leetcode(game_window),**btn_style).grid(row=0, column=1, padx=20, pady=20)
+
+    ctk.CTkButton(game_frame, text="HangMan", command=lambda: open_hangman(game_window),**btn_style).grid(row=0, column=2, padx=20, pady=10)
 
     
