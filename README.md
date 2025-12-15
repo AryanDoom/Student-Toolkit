@@ -3,27 +3,43 @@ Student Toolkit
 Student Toolkit is an all-in-one desktop application built in Python using CustomTkinter.
 I made this project to learn Python, understand GUI development, and create something genuinely useful.
 It is designed to solve common problems students face daily. Everything is available in one place, simple, fast, and clean.
+<img width="1364" height="849" alt="Screenshot 2025-12-13 104447" src="https://github.com/user-attachments/assets/adbdb45a-f53a-4cc0-ad3e-41cfdc9f990a" />
+
+
 
 Feature List
+
 Attendance Calculator
 
 Helps you calculate how many classes you need to attend or how many you can skip. Useful for maintaining attendance percentage without doing manual calculations.
+<img width="1124" height="782" alt="Screenshot 2025-12-13 104540" src="https://github.com/user-attachments/assets/aef389cf-83eb-45cb-bb29-ba272ddddae5" />
+
 
 GPA Calculator
 
 Converts your marks into letter grades and calculates your GPA in a clear and straightforward way.
+<img width="1919" height="1079" alt="Screenshot 2025-12-13 105107" src="https://github.com/user-attachments/assets/e9f53f08-c39d-4406-bfce-9c5cbc63d506" />
+
 
 GPA Plus Plus
 
 An advanced module that performs SGPA to CGPA conversion, grade to GPA conversion, and marks to GPA conversion. Built for students who need more detailed academic calculations.
+<img width="1919" height="1079" alt="Screenshot 2025-12-13 105107" src="https://github.com/user-attachments/assets/7fd191d6-c6a1-4b7c-8586-8a6609a1feb8" />
+<img width="1919" height="1079" alt="Screenshot 2025-12-13 105107" src="https://github.com/user-attachments/assets/bf14a825-9221-4473-927a-50697ec3bd40" />
+<img width="1919" height="1079" alt="Screenshot 2025-12-13 105152" src="https://github.com/user-attachments/assets/8960902a-ab45-42c7-a411-4a46e7f66c75" />
+
 
 LLM
 
 A one stop assistant that answers any doubt you have. Works like a personal study bot integrated into the toolkit.
+<img width="1378" height="998" alt="Screenshot 2025-12-13 110356" src="https://github.com/user-attachments/assets/c24109f2-c4ff-4469-a350-2c2c4cedb41f" />
+
 
 QR Resource Hub
 
 Provides access to books, notes, slides, previous year questions, and other study material. Everything is organized in one place and accessible through quick QR scans.
+<img width="654" height="951" alt="Screenshot 2025-12-13 104732" src="https://github.com/user-attachments/assets/7a99a3d8-5854-41c5-bc67-c29b553e935d" />
+
 
 Quiz
 
@@ -32,10 +48,15 @@ Generates MCQs from any topic or niche you choose. It uses a locally running mod
 To Do List
 
 A simple task manager that stores your tasks on your PC. Lets you add tasks, update them, and keep track of your work easily.
+<img width="627" height="677" alt="Screenshot 2025-12-13 104656" src="https://github.com/user-attachments/assets/6205bf95-56a2-4b25-ba88-98208575a375" />
+
 
 Brain Teaser
 
 A small collection of practice tools that currently includes Wordle and DSA question practice. This section can grow with more games or challenges over time.
+<img width="642" height="873" alt="Screenshot 2025-12-13 110342" src="https://github.com/user-attachments/assets/1f83d179-b1ae-4518-9e5d-e0860311be2c" />
+<img width="1378" height="998" alt="Screenshot 2025-12-13 110356" src="https://github.com/user-attachments/assets/0c5fe0c5-799d-48ba-bd7e-c053c05a84de" />
+
 
 Requirements
 
@@ -113,3 +134,62 @@ Data Handling
 
 Pandas is used for reading CSV files, managing datasets, and performing conversions.
 Local storage is used for saving To Do tasks so that the user can close and reopen the toolkit without losing progress.
+
+Getting Started
+
+Follow the steps below to clone and run Student Toolkit on your local machine.
+
+Clone the Repository
+
+```bash
+git clone https://github.com/<your-username>/student-toolkit.git
+cd student-toolkit
+```
+
+Create a Virtual Environment (Recommended)
+
+```bash
+python -m venv venv
+```
+
+Activate the virtual environment:
+
+Windows
+
+venv\Scripts\activate
+
+
+macOS / Linux
+
+source venv/bin/activate
+
+Install Dependencies
+
+Install all required Python libraries using the provided requirements.txt file:
+
+```bash
+pip install -r requirements.txt
+```
+
+Ollama Setup (Required for LLM & Quiz)
+
+Student Toolkit uses a locally running LLM through Ollama.
+
+Download and install Ollama from
+https://ollama.com
+
+Pull the required model (example: DeepSeek):
+
+```bash
+ollama pull deepseek-r1
+```
+
+Ensure Ollama is running in the background before launching the application.
+
+Run the Application
+
+```bash
+python main.py
+```
+
+The Student Toolkit window will launch, and all features can be accessed from the main dashboard.
