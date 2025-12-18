@@ -28,7 +28,7 @@ def open_quiz(root):
     topic_entry_user = ctk.CTkEntry(top_frame, font=("Agency FB", 18), corner_radius=5, height=40, width=300)
     topic_entry_user.pack()
 
-    # ---------- RESULT FRAME ----------
+
     result_frame = ctk.CTkFrame(quiz_window, fg_color="#000000")
     result_frame.pack(fill="both", expand=True, pady=10)
 
@@ -37,7 +37,6 @@ def open_quiz(root):
 
     option_buttons = []  # will store the 4 option buttons
 
-    # ---------- MCQ GENERATION LOGIC ----------
     def generate_mcq():
         # get input from entries
         subject = subject_entry_user.get()
@@ -72,8 +71,7 @@ def open_quiz(root):
             question_text = data["question"]
             options = data["options"]
             correct_answer = data["answer"]
-
-            # ---- DISPLAY QUESTION ----
+            
             question_label.configure(text=question_text)
 
             # delete old buttons if they exist
@@ -81,7 +79,6 @@ def open_quiz(root):
                 btn.destroy()
             option_buttons.clear()
 
-            # ---- BUTTON LOGIC ----
             def check_answer(index):
                 if options[index] == correct_answer:
                     question_label.configure(text=f" Correct!\n\n{question_text}")

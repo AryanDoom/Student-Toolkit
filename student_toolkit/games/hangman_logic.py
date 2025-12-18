@@ -141,7 +141,7 @@ def open_hangman(root):
     canvas = tk.Canvas(content,width=160,height=220,bg="#353434",highlightthickness=0)
     canvas.pack(anchor="center", padx=20)
 
-    canvas.doom_img = ImageTk.PhotoImage(Image.open(os.path.join(base, "doom_mask4.png")).convert("RGBA").resize((36, 55), Image.LANCZOS),master=hangman_window   )
+    canvas.doom_img = ImageTk.PhotoImage(Image.open(os.path.join(base, "doom_mask.png")).convert("RGBA").resize((36, 55), Image.LANCZOS),master=hangman_window   )
 
     draw_gallows()
     redraw()
